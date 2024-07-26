@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Void App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		html, body {
+			width: 97%;
+			height: 99.3%;
+			text-align: center;
+			background-image: linear-gradient(to bottom, #101010, #353535);
+		}
+		.body-container {
+			text-align: left;
+			color: #DDDDDD;
+			font-family: sans-serif;
+			outline: none;
+			overflow: auto;
+		}
+		.chat-buttons {
+			border: 1px solid #DDDDDD;
+			padding: 5px;
+			border-radius: 5px;
+			font-family: sans-serif;
+			background-color: transparent;
+			color: #DDDDDD;
+		}
+		.inp-chatbox {
+			padding: 5px;
+			border-radius: 5px;
+			font-family: sans-serif;
+			width: 90%;
+			margin-top: 20px
+		}
+	</style>
+	<script src="data.js"></script>
+	<!-- starNames: Array Of Snake Cased Names -->
+	<!-- lemmaDict: Dictionary Of Lemmatization words -->
+	<!-- intentDict: Dictionary Of Key Intentents and Array Words -->
+	<script type="text/javascript">
+		function myhello(arg) {
+			var greetings = ['Hello, Sweet heart', 'Hi, Sweetie', 'Greetings, Honey', 'Hello, How are you Love?']
+			var currentGreeting = greetings[Math.floor(Math.random()*greetings.length-1)]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + currentGreeting;
+		}
+		function myhru(arg) {
+			var hrus = ['I am fine, thanks for asking.'];
+			// var hru = [Math.floor(Math.random()*hrus.length-1)]
+			var hru = hrus[0];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + hru;
+		}
+		function myage(arg) {
+			var ages = ['I am young and single.'];
+			// var age = [Math.floor(Math.random()*ages.length-1)]
+			var age = ages[0]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + age;
+		}
+		function mylike(arg) {
+			if (arg[0] != '' && arg[0] != undefined) {
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn\', target=\'_blank\')">If you like '+arg[0]+' Then you might love these</button>';
+				window.open('https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn', target='_blank');
+			} else {
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+pornhub\', target=\'_blank\')">Let me get it for you</button>';
+				window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+pornhub', target='_blank');
+			}
+		}
+		function mylike_milf(arg) {
+			var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length-1)];
+			arg[0] = randStar;
+			mylike(arg);
+		}
+		function mylike_teen(arg) {
+			var randStar = valueData['teen'][Math.floor(Math.random()*valueData['teen'].length-1)];
+			arg[0] = randStar;
+			mylike(arg);
+		}
+		function mylike_star(arg) {
+			var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length-1)];
+			arg[0] = randStar;
+			mylike(arg);
+		}
+
+		function myvideo(arg) {
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+pornhub.org\', target=\'_blank\')">Let me get it for you</button>';
+			window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+pornhub.org', target='_blank');
+		}
+		function myrandom_video(arg) {
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?g=random\', target=\'_blank\')">Playing a random footage</button>';
+			window.open('https://aadhibbc1991.github.io/stars/?g=random', target='_blank');
+		}
+		function myrandom_stars(arg) {
+			var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length-1)];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn\', target=\'_blank\')">Choosing a Random Star</button>';
+			window.open('https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn', target='_blank');
+		}
+
+		function processInput() {
+			var mytxt = document.getElementById('chatbox').innerHTML;
+			var lctxt = mytxt.replace(/<br>/g, '\n').toLowerCase().trim();
+			var lastConv = lctxt.split("\nuser: ")[lctxt.split("\nuser: ").length - 1]
+			if (lastConv.indexOf('\nai:') > -1 && lastConv.trim() != '') {return}
+
+			var lastConv = ' ' + lastConv + ' ';
+			var convStarName = '';
+			//Extract The Star Names
+			for (let sn =0; sn<starNames.length; sn++) {
+				if (lastConv.indexOf(' ' + starNames[sn] + ' ') > -1 && convStarName.indexOf(' ' + starNames[sn]) <= -1) {
+					var convStarName = convStarName + ' ' + starNames[sn];
+				}
+			}
+			var convStarName = convStarName.trim();
+
+			//Lemma Input
+			var lemmaConv = ''
+			for (let w=0; w<lastConv.trim().split(' ').length; w++) {
+				lemmaWord = lemmaDict[lastConv.trim().split(' ')[w]];
+				if (lemmaWord != undefined) {var lemmaConv = lemmaConv + lemmaWord + ' '} else {var lemmaConv = lemmaConv + lastConv.trim().split(' ')[w] + ' '}
+			}
+			var lemmaConv = lemmaConv.trim();
+
+			//Intent Recognition
+			var maxScore = 0;
+			var finalIntent = '';
+			for (k in intentDict) {
+				if (k in intentDict) {
+					var currentVals = intentDict[k].join(" ").toLowerCase().split(" ");
+					var currentScore = 0;
+					for (let v=0; v<currentVals.length; v++) {
+						currentVal = currentVals[v];
+						if (lemmaConv.indexOf(currentVal) > -1) {
+							var currentScore = currentScore + 1;
+						}
+					}
+					if (currentScore > maxScore) {
+						var finalIntent = k;
+						var maxScore = currentScore;
+					}
+				}
+			}
+
+			var argArray = [convStarName, lemmaConv, maxScore];
+
+			if (finalIntent != '') {window['my'+finalIntent](argArray);}
+
+			console.log('"' +lctxt+ '"')
+		}
+	</script>	
+</head>
+<body>
+	<div id="chatbox" class="body-container" contenteditable>
+		<br><br>AI: Hello
+	</div>
+	<input class="inp-chatbox" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" />
+</body>
+</html>
