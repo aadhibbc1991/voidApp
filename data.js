@@ -5,5 +5,5 @@ var intentDict = {'like': ['like', 'love', 'fan', 'admire', 'adore', 'sweet', 'c
 				  'hello': ['hello', 'hi'], 'hru': ['how', 'are', 'you'], 'age': ['ho', 'old', 'are', 'you']};
 var valueData = {
     "milf": ["Lisa Ann", "Brandi Love", "Kendra Lust", "Nicole Aniston", "Eva Notty", "Ava Addams"],
-    "teen": ["Janice Griffith", "Aria Rea", "Dillion Harper", "Lena Paul"],
+    "teen": ["Janice Griffith", "Adria Rea", "Dillion Harper", "Lena Paul"],
     "star": ["Lisa Ann", "Brandi Love", "Kendra Lust", "Nicole Aniston", "Eva Notty", "Ava Addams", "Janice Griffith", "Aria Rea", "Dillion Harper", "Lena Paul"],}
