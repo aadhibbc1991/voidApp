@@ -31,10 +31,26 @@
 			font-family: sans-serif;
 			width: 90%;
 			margin-top: 20px
+			margin: 5px;
+			margin-top: 10px;
+			margin-bottom: 10px;
 		}
 		.ifrm {
 			width: 95%;
 			height: 400px;
+			border-radius: 15px;
+		}
+		.pda-msg {
+			padding: 10px;
+			border: 1px solid transparent;
+			border-radius: 10px;
+			background-image: linear-gradient(to bottom right, blue, purple);
+		}
+		.title-txt {
+			font-family: sans-serif;
+			font-size: 150%;
+			color: white;
+			font-weight: 600;
 		}
 	</style>
 	<script src="data.js"></script>
@@ -42,81 +58,98 @@
 	<!-- lemmaDict: Dictionary Of Lemmatization words -->
 	<!-- intentDict: Dictionary Of Key Intentents and Array Words -->
 	<script type="text/javascript">
+		function preprocess() {
+			var url = window.location.href;
+			console.log('url => '+url);
+			if (url.indexOf('\?') <= -1) {return;}
+			console.log('url 2 => '+url);
+			var args = url.split('\?')[1];
+			var searchq = args.split('s=')[1].split('&')[0].replace(/\+/g, ' ');
+			chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + searchq;
+			processInput();
+		}
+
 		function myimgood(arg) {
 			var greetings = ["Glad to hear that, By the way what would you like today? teen or milf?",
 							 "Happy to hear, so whats it gonna be milf or teen?"]
 			var currentGreeting = greetings[Math.floor(Math.random()*greetings.length)]
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + currentGreeting;
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentGreeting + '</div>';
 		}
 
 		function myhello(arg) {
 			var greetings = ['Hello, Sweet heart, what would you like to explore', 'Hi, Sweetie, what would you like? milf or teen?', 'Greetings, Honey, todays choise, milf or teen?', 'Hello, How are you Love?']
 			var currentGreeting = greetings[Math.floor(Math.random()*greetings.length)]
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + currentGreeting;
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentGreeting + '</div>';
 		}
 		function myhru(arg) {
 			var hrus = ['I am fine, thanks for asking.'];
 			// var hru = [Math.floor(Math.random()*hrus.length-1)]
 			var hru = hrus[0];
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + hru;
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <div class="pda-msg">' + hru + '</div>';
 		}
 		function myage(arg) {
 			var ages = ['I am young and single.'];
 			// var age = [Math.floor(Math.random()*ages.length-1)]
 			var age = ages[0]
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + age;
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + age + '</div>';
 		}
 		function myactions(arg) {
 			var ages = ['I can do the following:<br>1. Give You Access Adult Sites<br>2. Suggest You With Pornstars based on your likes.<br>3. Play random adult videos<br>'];
 			// var age = [Math.floor(Math.random()*ages.length-1)]
 			var age = ages[0]
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: ' + age
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + age + '</div>';
+		}
+		function mythanks(arg) {
+			var greetings = ['You are welcome sweet heart!', 'Anytime hottie!', 'You are most welcome!'];
+			var currentGreeting = greetings[Math.floor(Math.random()*greetings.length)]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentGreeting + '</div>';
+			
 		}
 		function mysearch(arg) {
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Sure, Here you go.</button>';
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Sure, Here you go.</button></div>';
 			window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
 		}
 		function mylike(arg) {
 			if (arg[0] != '' && arg[0] != undefined) {
 				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn\', target=\'_blank\')">If you like '+arg[0]+' Then you might love these</button>';
 				// window.open('https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: If you like '+arg[0]+' Then you might love these..<br><iframe src="https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm"></iframe>'
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: If you like '+arg[0]+' Then you might love these..<br><iframe src="https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm"></iframe></div>'
 
 			} else {
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button>';
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
 				window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
 				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><iframe src="https://aadhibbc1991.github.io/stars/?s='+arg[1].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm"></iframe>'
 			}
 		}
 		function mylike_milf(arg) {
-			var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length-1)];
+			var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length)];
 			arg[0] = randStar;
 			mylike(arg);
 		}
 		function mylike_teen(arg) {
-			var randStar = valueData['teen'][Math.floor(Math.random()*valueData['teen'].length-1)];
+			var randStar = valueData['teen'][Math.floor(Math.random()*valueData['teen'].length)];
 			arg[0] = randStar;
 			mylike(arg);
 		}
 		function mylike_star(arg) {
-			var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length-1)];
+			var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length)];
 			arg[0] = randStar;
 			mylike(arg);
 		}
 
 		function myvideo(arg) {
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button>';
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
 			window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
 		}
 		function myrandom_video(arg) {
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?g=random\', target=\'_blank\')">Playing a random footage</button>';
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?g=random\', target=\'_blank\')">Playing a random footage</button></div>';
 			window.open('https://aadhibbc1991.github.io/stars/?g=random', target='_blank');
 		}
 		function myrandom_stars(arg) {
-			var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length-1)];
+			var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length)];
 			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main\', target=\'_blank\')">Choosing a Random Star</button>';
 			// window.open('https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: You might like this..<br><iframe src="https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main" class="ifrm"></iframe>'
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: You might like this..<br><iframe src="https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main" class="ifrm"></iframe></div>'
 		}
 
 		function processInput() {
@@ -171,13 +204,17 @@
 			if (finalIntent != '') {window['my'+finalIntent](argArray);}
 
 			// console.log('"' +lctxt+ '"')
+
+			window.scrollTo(0, document.body.scrollHeight);
+
 		}
 	</script>	
 </head>
-<body>
+<body onload="preprocess();">
+	<a class="title-txt">Void App</a><br>
 	<div id="chatbox" class="body-container" contenteditable>
 		<br><br>
 	</div>
-	<input class="inp-chatbox" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" />
+	<input class="inp-chatbox" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
