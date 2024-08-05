@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Void App V2.2</title>
+	<title>Void App V3.3</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		html, body {
@@ -117,8 +117,15 @@
 			
 		}
 		function mysearch(arg) {
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Sure, Here you go.</button></div>';
-			window.open('https://void-web-search-app.vercel.app/search/'+arg[1].trim().replace(/ /g, '+')+'+porn', target='_blank');
+			if (arg[2] == '' || arg[2] == undefined) {
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Sure, Here you go.</button></div>';
+				window.open('https://void-web-search-app.vercel.app/search/'+arg[1].trim().replace(/ /g, '+')+'+porn', target='_blank');
+			} else {
+				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Sure, Here you go.</button></div>';
+				window.open(u, target='_blank');	
+			}
 		}
 		function mylike(arg) {
 			if (arg[0] != '' && arg[0] != undefined) {
@@ -127,8 +134,15 @@
 				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: If you like '+arg[0]+' Then you might love these..<br><iframe src="https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm"></iframe></div>'
 
 			} else {
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
-				window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
+				if (arg[2] == '' || arg[2] == undefined) {
+					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
+					window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
+				} else {
+					var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+					var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
+					window.open(u, target='_blank');
+				}
 				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><iframe src="https://aadhibbc1991.github.io/stars/?s='+arg[1].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm"></iframe>'
 			}
 		}
@@ -163,13 +177,35 @@
 			mylike(arg);
 		}
 
+		function mydetail(arg) {
+			arg[2] = "https://www.milffox.com/search/?q=lisa+ann";
+			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here Are The Details <br><iframe src="'+u+'" class="ifrm"></iframe></div>';
+			// window.open(u, target='_blank');
+		}
+
 		function myvideo(arg) {
+			if (arg[2] == '' || arg[2] == undefined) {
 			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
 			window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
+			} else {
+					var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+					var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
+					window.open(u, target='_blank');
+				}
 		}
 		function myrandom_video(arg) {
+			if (arg[2] == '' || arg[2] == undefined) {
 			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?g=random\', target=\'_blank\')">Playing a random footage</button></div>';
 			window.open('https://aadhibbc1991.github.io/stars/?g=random', target='_blank');
+			} else {
+					var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+					var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Playing a random footage</button></div>';
+					window.open(u, target='_blank');
+				}
 		}
 		function myrandom_stars(arg) {
 			var randStar = myChooseRandom(valueData['star']);
@@ -206,25 +242,51 @@
 			//Intent Recognition
 			var maxScore = 0;
 			var finalIntent = '';
+			var newConv = lemmaConv;
+			var currentScore = 0;
 			for (k in intentDict) {
 				if (k in intentDict) {
 					var currentVals = intentDict[k].join(" ").toLowerCase().split(" ");
 					var currentScore = 0;
+					var newConv = lemmaConv;
 					for (let v=0; v<currentVals.length; v++) {
 						currentVal = ' ' + currentVals[v].toLowerCase().trim() + ' ';
 						if (lemmaConv.indexOf(currentVal) > -1) {
 							var currentScore = currentScore + 1;
+							var newConv = newConv.replace(currentVal, ' ');
+							console.log('        '+currentVal);
 						}
 					}
 					if (currentScore >= maxScore) {
+						var newConvOut = newConv;
 						var finalIntent = k;
 						var maxScore = currentScore;
-						console.log('finalIntent => '+finalIntent+'\n'+'maxScore => '+maxScore);
+						console.log('finalIntent => '+finalIntent+' '+'maxScore => '+maxScore);
 					}
 				}
 			}
 
-			var argArray = [convStarName, lemmaConv, maxScore];
+			var maxCnt = 0;
+			var outUrl = '';
+			var newConv2 = '';
+			var newConvOut2 = newConvOut;
+			for (let sarr=0; sarr<siteData.length; sarr++) {
+				var currentUrl = siteData[sarr];
+				var cnt = 0;
+				var newConv2 = '';
+				for (let lc=0; lc<lemmaConv.trim().split(' ').length; lc++) {
+					var currentWord = lemmaConv.trim().split(' ')[lc];
+					if (currentUrl.indexOf(currentWord) <= -1 && currentWord.length > 2) {var newConv2 = newConv2 + ' ' + currentWord;} else {if (currentWord.toLowerCase() == 'lisa' || currentWord.toLowerCase() == 'ann') {var newConv2 = newConv2 + ' ' + currentWord;}}
+					if (currentUrl.indexOf(currentWord) > -1 && currentWord.length > 3) {var cnt = cnt + 1;}
+				}
+				if (cnt > 0 && cnt >= maxCnt) {
+					var maxCnt = cnt;
+					var outUrl = currentUrl;
+					var newConvOut2 = newConv2.trim();
+				}
+			}
+
+			var argArray = [convStarName, newConvOut2.split('user: ')[newConvOut.split('user: ').length-1], outUrl, maxScore];
 
 			console.log('My Function: '+'my'+finalIntent);
 
