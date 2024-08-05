@@ -28,7 +28,7 @@ var intentDict = {
 		'adore', 'sweet', 'cute', 'hot', 'horny', 'pretty', 'gorgeous', 'beauty', 'beautiful', 
 		'teen', 'pateite', '18yo', '18', '18 yo', '18 year old'], 
 	
-	'like': ['how', 'about', 'choose', 'choice', 'like', 'love', 'fan', 'admire', 'adore', 'sweet', 'cute', 'hot', 'horny', 'pretty', 'gorgeous', 'beauty', 'beautiful'], 
+	'like': ['suggest', 'show', 'some', 'how', 'about', 'choose', 'choice', 'like', 'love', 'fan', 'admire', 'adore', 'sweet', 'cute', 'hot', 'horny', 'pretty', 'gorgeous', 'beauty', 'beautiful'], 
 	'video': ['video', 'film', 'movie', 'clip', 'footage', 'recording', 'mms', 'porn', 'tube'], 
 	'search': ['search', 'can', 'you', 'site', 'website', 'webpage', 'unblock', 'go to', 'visit', 'open']
 };
