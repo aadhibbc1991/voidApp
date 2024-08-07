@@ -88,14 +88,13 @@ var intentDict = {
 	'ntmy': ['pleasure', 'nice', 'meet'],
 
 
-	'random_video': ['how', 'about', 'some', 'something', 'any', 'anything', 'video', 'film', 'movie', 'clip', 
-		'footage', 'recording', 'mms', 'porn', 'tube'], 
+	'random_video': ["random", 'how', 'about', 'some', 'something', 'any', 'anything', 
+					 "video", "footage", "clip", "recording", "tape", "mms", "dvd", "vid", "vids", "porn", "tube", "movie", "film"], 
 	'random_stars': ['how', 'about', 'some', 'something', 'any', 'anything', 'star', 'actress', 'pornstar'], 
 	
 	'like_dilf': ["need", "want", "wanna", "wish", "desire", 
 					 "like", "love", "adore", "fan", "hot", "cute", "pretty", "beauty", "beautiful", 
 					 "suggest", "similar", 
-					 "someone", "anyone", "star", "pornstar",
 					 "dilf", "mature", "dad", "stepdad", "step", "old", "older", "men", "man", "guy", "dude", "father", "daddy", "papa", "uncle"], 
 	'like_boy': ["need", "want", "wanna", "wish", "desire", 
 					 "like", "love", "adore", "fan", "hot", "cute", "pretty", "beauty", "beautiful", 
@@ -120,10 +119,11 @@ var intentDict = {
 				"biodata", "bio", "details", "story", "know", "data", "information", "info", "about", 
 				"height", "weight", "measurement", "measure", "size", "color", "ethnicity", "home", "origin", "build"],
 	
-	'like': ['suggest', 'show', 'how', 'about', 'choose', 'choice', 'like', 'love', 'fan', 'admire', 'adore', 'sweet', 'cute', 'hot', 'horny', 'pretty', 'gorgeous', 'beauty', 'beautiful'], 
+	'like': ['suggest', 'show', 'how', 'about', 'choose', 'choice', 'like', 'love', 'fan', 'admire', 'adore', 'sweet', 'cute', 
+			 'hot', 'pretty', 'gorgeous', 'beauty', 'beautiful'], 
 	'video': ["need", "want", "wanna", "wish", "desire", 
 					"watch", "see", "look", "view", "display", "show", 
-					"video", "footage", "clip", "recording", "mms", "dvd", "vid", "porn"],
+					"video", "footage", "clip", "recording", "tape", "mms", "dvd", "vid", "vids", "porn", "tube", "movie", "film"],
 	'pic': ["need", "want", "wanna", "wish", "desire", 
 			  "watch", "see", "look", "view", "display", "show", 
 			  "image", "images", "photo", "picture", "pic", "pics", "clipart", "drawing", "memes", "meme", "outline", "art"],
@@ -138,54 +138,78 @@ var valueData = {
     "star": ["Lisa Ann", "Brandi Love", "Kendra Lust", "Nicole Aniston", "Eva Notty", "Ava Addams", "Janice Griffith", "Adria Rea", "Dillion Harper", "Lena Paul"],
     "site": ["mat6tube", "qorno", "de.porngub.org", "spankbang.party"]
 }
+// var siteData = [
+// "https://de.pornhub.org/video/search?search=lisa+ann", 
+// "https://xhamster42.desi/search/lisa+ann", 
+// "https://spankbang.party/s/lisa%20ann/", 
+// "https://pornzog.com/search/?s=lisa+ann", 
+// "https://txxx.com/search/?s=lisa%20ann", 
+// "https://www.redtube.net/?search=lisa+ann", 
+// "https://www.porn.com/search?sq=lisa+ann", 
+// "https://www.tube8.es/searches.html?q=lisa+ann", 
+// "https://www.ixxx.com/search/a/lisa%20ann", 
+// "https://www.sunporno.com/search/lisa+ann/", 
+// "https://www.pornhat.com/search/lisa-ann/", 
+// "https://www.thumbzilla.com/tags/lisa-ann", 
+// "https://zbporn.com/search/lisa+ann/", 
+// "https://ok.xxx/search/lisa-ann/", 
+// "https://beeg.com/LisaAnn?f=MILF", 
+// "https://www.3movs.com/search_videos/?q=lisa-ann", 
+// "https://www.cumlouder.com/search/?q=lisa%20ann", 
+// "https://vipwank.com/lisa-ann-videos", 
+// "https://www.porndroids2.com/search/?q=lisa+ann&bus=lisa+ann", 
+// "https://xbabe.com/search/?q=lisa+ann", 
+// "https://www.alohatube.com/top/lisa_ann_milf", 
+// "https://www.maturetube.com/search/a/lisa%20ann", 
+// "https://www.tubev.sex/search?search=lisa+ann", 
+// "https://www.porntube.com/search?q=lisa%20ann", 
+// "https://www.porndig.com/videos/s=lisa+ann", 
+// "https://www.pornburst2.xxx/search/?q=lisa+ann", 
+// "https://www.porn.biz/find-lisa%20ann/page-1.php", 
+// "https://www.bigporn.com/search-lisa%20ann/1.html", 
+// "https://www.pornid.xxx/search/lisa+ann/", 
+// "https://www.pornerbros.com/search?q=lisa%20ann", 
+// "https://www.milffox.com/search/?f=1&q=lisa+ann", 
+// "https://www.qorno.com/search/a/lisa%20ann", 
+// "https://www.you-porn.com/search/?search-btn=&query=lisa+ann", 
+// "https://www.milfporn.tv/search/lisa-ann/", 
+// "https://iporntv.net/searches.php?word=lisa+ann", 
+// "https://eporner.com/search/lisa-ann/", 
+// "https://pornzog.com/search/?s=lisa+ann", 
+// "https://zeenite.com/search/lisa-ann/", 
+// "https://www.fpo.xxx/search/lisa-ann/", 
+// "https://www.porntrex.com/search/lisa-ann/", 
+// "https://mat6tube.com/video/lisa%20ann", 
+// "https://noodlemagazine.com/video/lisa%20ann", 
+// "https://bigfuck.tv/s/lisa-ann/", 
+// "https://hqporner.com/?q=lisa+ann", 
+// "https://upornia.com/search/1/?s=lisa+ann", 
+// "https://sxyprn.com/lisa-ann.html", 
+// ]
+
 var siteData = [
-"https://de.pornhub.org/video/search?search=lisa+ann", 
-"https://xhamster42.desi/search/lisa+ann", 
+"https://hdhole.com/lisa-ann-videos", 
 "https://spankbang.party/s/lisa%20ann/", 
+"https://matures.porn/search?q=lisa+ann", 
+"https://www.pussyspace.com/search?q=lisa+ann", 
+"https://kompoz2.com/find/lisa-ann/", 
 "https://pornzog.com/search/?s=lisa+ann", 
-"https://txxx.com/search/?s=lisa%20ann", 
-"https://www.redtube.net/?search=lisa+ann", 
-"https://www.porn.com/search?sq=lisa+ann", 
-"https://www.tube8.es/searches.html?q=lisa+ann", 
-"https://www.ixxx.com/search/a/lisa%20ann", 
-"https://www.sunporno.com/search/lisa+ann/", 
-"https://www.pornhat.com/search/lisa-ann/", 
-"https://www.thumbzilla.com/tags/lisa-ann", 
-"https://zbporn.com/search/lisa+ann/", 
-"https://ok.xxx/search/lisa-ann/", 
-"https://beeg.com/LisaAnn?f=MILF", 
-"https://www.3movs.com/search_videos/?q=lisa-ann", 
-"https://www.cumlouder.com/search/?q=lisa%20ann", 
-"https://vipwank.com/lisa-ann-videos", 
-"https://www.porndroids2.com/search/?q=lisa+ann&bus=lisa+ann", 
-"https://xbabe.com/search/?q=lisa+ann", 
-"https://www.alohatube.com/top/lisa_ann_milf", 
-"https://www.maturetube.com/search/a/lisa%20ann", 
-"https://www.tubev.sex/search?search=lisa+ann", 
-"https://www.porntube.com/search?q=lisa%20ann", 
-"https://www.porndig.com/videos/s=lisa+ann", 
-"https://www.pornburst2.xxx/search/?q=lisa+ann", 
-"https://www.porn.biz/find-lisa%20ann/page-1.php", 
-"https://www.bigporn.com/search-lisa%20ann/1.html", 
-"https://www.pornid.xxx/search/lisa+ann/", 
-"https://www.pornerbros.com/search?q=lisa%20ann", 
-"https://www.milffox.com/search/?f=1&q=lisa+ann", 
-"https://www.qorno.com/search/a/lisa%20ann", 
-"https://www.you-porn.com/search/?search-btn=&query=lisa+ann", 
-"https://www.milfporn.tv/search/lisa-ann/", 
 "https://iporntv.net/searches.php?word=lisa+ann", 
-"https://eporner.com/search/lisa-ann/", 
-"https://pornzog.com/search/?s=lisa+ann", 
-"https://zeenite.com/search/lisa-ann/", 
-"https://www.fpo.xxx/search/lisa-ann/", 
-"https://www.porntrex.com/search/lisa-ann/", 
-"https://mat6tube.com/video/lisa%20ann", 
-"https://noodlemagazine.com/video/lisa%20ann", 
-"https://bigfuck.tv/s/lisa-ann/", 
-"https://hqporner.com/?q=lisa+ann", 
-"https://upornia.com/search/1/?s=lisa+ann", 
-"https://sxyprn.com/lisa-ann.html", 
-]
+"https://bustybus.com/search/lisa%20ann/", 
+"https://hqporn.xxx/search/lisa%20ann/", 
+"https://porn-hub.live/search/lisa-ann/?", 
+"https://xnxx.health/search/lisa+ann",
+"https://mat6tube.com/video/lisa%20ann" 
+];
+
+var picsData = [
+"https://www.definebabe.com/search/albums/?f=1&q=lisa+ann",
+"https://jjgirls.com/pornpics/lisa-ann", 
+"https://babe.today/pics/lisa-ann", 
+"https://www.youx.xxx/tag/lisa-ann/", 
+"https://pics-x.com/search?terms=lisa+ann",
+"https://www.pornpictureshq.com/?q=lisa+ann" 
+];
 
 		function preprocess() {
 			var url = window.location.href;
@@ -286,14 +310,26 @@ var siteData = [
 			
 		}
 		function mysearch(arg) {
+			// if (arg[2] == '' || arg[2] == undefined) {
+			// 	document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Sure, Here you go.</button></div>';
+			// 	window.open('https://void-web-search-app.vercel.app/search/'+arg[1].trim().replace(/ /g, '+')+'+porn', target='_blank');
+			// } else {
+			// 	var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			// 	var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			// 	document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Sure, Here you go.</button></div>';
+			// 	window.open(u, target='_blank');	
+			// }
+
 			if (arg[2] == '' || arg[2] == undefined) {
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Sure, Here you go.</button></div>';
-				window.open('https://void-web-search-app.vercel.app/search/'+arg[1].trim().replace(/ /g, '+')+'+porn', target='_blank');
+				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
+				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'"></iframe></div>';
+				
 			} else {
 				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Sure, Here you go.</button></div>';
-				window.open(u, target='_blank');	
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'"></iframe></div>';
+
 			}
 		}
 		function mylike(arg) {
@@ -316,43 +352,43 @@ var siteData = [
 			}
 		}
 		function mylike_dilf(arg) {
-			if (arg[0] == '' || arg[0] == undefined) {
+			// if (arg[0] == '' || arg[0] == undefined) {
 				var randStar = myChooseRandom(valueData['dilf']);
 			// var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length)];
 				arg[0] = randStar;
-			}
+			// }
 			mylike(arg);
 		}
 		function mylike_boy(arg) {
-			if (arg[0] == '' || arg[0] == undefined) {
+			// if (arg[0] == '' || arg[0] == undefined) {
 				var randStar = myChooseRandom(valueData['boy']);
 			// var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length)];
 				arg[0] = randStar;
-			}
+			// }
 			mylike(arg);
 		}
 		function mylike_milf(arg) {
-			if (arg[0] == '' || arg[0] == undefined) {
+			// if (arg[0] == '' || arg[0] == undefined) {
 				var randStar = myChooseRandom(valueData['milf']);
 			// var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length)];
 				arg[0] = randStar;
-			}
+			// }
 			mylike(arg);
 		}
 		function mylike_teen(arg) {
-			if (arg[0] == '' || arg[0] == undefined) {
+			// if (arg[0] == '' || arg[0] == undefined) {
 				var randStar = myChooseRandom(valueData['teen']);
 			// var randStar = valueData['teen'][Math.floor(Math.random()*valueData['teen'].length)];
 				arg[0] = randStar;
-			}
+			// }
 			mylike(arg);
 		}
 		function mylike_star(arg) {
-			if (arg[0] == '' || arg[0] == undefined) {
+			// if (arg[0] == '' || arg[0] == undefined) {
 				var randStar = myChooseRandom(valueData['star']);
 			// var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length)];
 				arg[0] = randStar;
-			}
+			// }
 			mylike(arg);
 		}
 
@@ -365,37 +401,70 @@ var siteData = [
 		}
 
 		function myvideo(arg) {
+			// if (arg[2] == '' || arg[2] == undefined) {
+			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
+			// window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
+			// } else {
+			// 		var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			// 		var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			// 		document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
+			// 		window.open(u, target='_blank');
+			// 	}
+
 			if (arg[2] == '' || arg[2] == undefined) {
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
-			window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
+				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
+				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'"></iframe></div>';
+				
 			} else {
-					var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
-					var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
-					window.open(u, target='_blank');
-				}
+				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'"></iframe></div>';
+
+			}
 		}
 
 		function mypic(arg) {
-			if (arg[0] == '' || arg[0] == undefined) {
-				arg[0] = myChooseRandom(valueData['milf']);
+			// if (arg[0] == '' || arg[0] == undefined) {
+			// 	arg[0] = myChooseRandom(valueData['milf']);
+			// }
+			// var q = arg[0].trim().replace(/ /g, "+");
+			// var u = "https://www.pornpics.de/?q="+q;
+			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
+			// window.open(u, target='_blank');
+
+			arg[1] = ' ' + arg[1] + ' ';
+			var picsKeys = intentDict['pic']
+			for (let pk=0; pk<picsKeys.length; pk++) {
+				arg[1] = arg[1].split(' ' + picsKeys[pk] + ' ').join(' ');
 			}
-			var q = arg[0].trim().replace(/ /g, "+");
-			var u = "https://www.pornpics.de/?q="+q;
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
-			window.open(u, target='_blank');
+			arg[1] = arg[1].trim();
+
+			arg[2] = myChooseRandom(picsData)
+			var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'"></iframe></div>';
+
 		}
 
 		function myrandom_video(arg) {
-			if (arg[2] == '' || arg[2] == undefined) {
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?g=random\', target=\'_blank\')">Playing a random footage</button></div>';
-			window.open('https://aadhibbc1991.github.io/stars/?g=random', target='_blank');
-			} else {
-					var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
-					var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Playing a random footage</button></div>';
-					window.open(u, target='_blank');
-				}
+			// if (arg[2] == '' || arg[2] == undefined) {
+			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?g=random\', target=\'_blank\')">Playing a random footage</button></div>';
+			// window.open('https://aadhibbc1991.github.io/stars/?g=random', target='_blank');
+			// } else {
+			// 		var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			// 		var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			// 		document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Playing a random footage</button></div>';
+			// 		window.open(u, target='_blank');
+			// 	}
+			if (arg[0] == '' || arg[0] == undefined) {
+				arg[0] = myChooseRandom(valueData['star']);
+			}
+			arg[2] = myChooseRandom(siteData);
+			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is A Random Search: <iframe class="ifrm" src="'+u+'"></iframe></div>';
+
 		}
 		function myrandom_stars(arg) {
 			var randStar = myChooseRandom(valueData['star']);
@@ -411,7 +480,7 @@ var siteData = [
 			var lastConv = lctxt.split("\nuser: ")[lctxt.split("\nuser: ").length - 1]
 			if (lastConv.indexOf('\nai:') > -1 && lastConv.trim() != '') {return}
 
-			var symb = [',', "'", '"', '/', '\\', '\?', "!", "(", ")", "&"];
+			var symb = [',', "'", '"', '/', '\\', '\?', "!", "(", ")", "&", "\."];
 			for (let sno=0; sno<symb.length; sno++) {
 				var lastConv = lastConv.split(symb[sno]).join(" " + symb[sno] + " ");
 			}
@@ -497,7 +566,7 @@ var siteData = [
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App</a><br>
+	<a class="title-txt">Void App 2.0</a><br>
 	<div id="chatbox" class="body-container">
 		<br><br>
 	</div>
