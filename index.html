@@ -570,13 +570,15 @@ var picsData = [
 			// alert(`Body size changed: width=${width}, height=${height}`);
 			var objDiv = document.getElementById("chatbox");
 			objDiv.scrollTop = objDiv.scrollHeight;
-			window.scrollTo(0, document.body.scrollHeight);
+			// window.scrollTo(0, document.body.scrollHeight);
+			document.body.scrollTop = document.body.scrollHeight;
 		});
 		
 		function myScrollToBottom() {
 			var objDiv = document.getElementById("chatbox");
 			objDiv.scrollTop = objDiv.scrollHeight;
-			window.scrollTo(0, document.body.scrollHeight);
+			// window.scrollTo(0, document.body.scrollHeight);
+			document.body.scrollTop = document.body.scrollHeight;
 		}
 	</script>	
 </head>
