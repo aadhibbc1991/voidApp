@@ -571,10 +571,10 @@ var picsData = [
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 3.0</a><br>
+	<a class="title-txt">Void App 4.0</a><br>
 	<div id="chatbox" class="body-container">
 		<br><br>
 	</div>
-	<input class="inp-chatbox" onfocus="myScrollToBottom()" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
+	<input class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
