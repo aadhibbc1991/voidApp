@@ -613,6 +613,7 @@ var finalStarNames = finalStarNames.split(',');
 				dbx.classList.add(classNameStr);
 				cbx.style.width = "30%";
 				dbx.style.width = "69%";
+
 			} else {
 				var classNameStr = 'my-mobile-view';
 				cbx.classList.add(classNameStr);
@@ -729,12 +730,43 @@ var finalStarNames = finalStarNames.split(',');
 			color: grey;
 			font-weight: 600;
 		}
-	</style>	
+	</style>
+	<script type="text/javascript">
+		function myFullScreenFunc(ele) {
+			if (window.innerHeight > window.innerWidth) {
+				if (ele[0].innerHTML == '↗') {
+					ele[1].style.height = '80%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.display = 'none';
+					ele[0].innerHTML == '↙';
+				} else {
+					myViewSelect();
+					ele[1].style.height = '45%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.display = 'inline-block';
+					ele[0].innerHTML == '↗';
+				}
+			} else {
+				if (ele[0].innerHTML == '↗') {
+					ele[1].style.width = '90%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.display = 'none';
+					ele[0].innerHTML == '↙';
+				} else {
+					myViewSelect();
+					ele[1].style.width = '49%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.display = 'inline-block';
+					ele[0].innerHTML == '↗';
+				}
+			}
+		}
+	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 5.0</a><br>
-	<div id="chatbox"><button class="full-screen-btn" onclick="if (this.innerHTML == '↗') {chatbox.style.height = '80%'; chatbox.style.display = 'inline-block'; displaybox.style.display = 'none'; this.innerHTML = '↙';} else {myViewSelect(); this.innerHTML = '↗';}">↗</button><br><br></div>
-	<div id="displaybox"><button class="full-screen-btn" onclick="if (this.innerHTML == '↗') {displaybox.style.height = '80%'; displaybox.style.display = 'inline-block'; chatbox.style.display = 'none'; this.innerHTML = '↙';} else {myViewSelect(); this.innerHTML = '↗';}">↗</button></div>
+	<a class="title-txt">Void App 6.0</a><br>
+	<div id="chatbox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button><br><br></div>
+	<div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button></div>
 	<input class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
