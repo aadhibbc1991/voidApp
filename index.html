@@ -563,13 +563,18 @@ var picsData = [
 			window.scrollTo(0, document.body.scrollHeight);
 
 		}
+		function myScrollToBottom() {
+			var objDiv = document.getElementById("chatbox");
+			objDiv.scrollTop = objDiv.scrollHeight;
+			window.scrollTo(0, document.body.scrollHeight);
+		}
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 2.0</a><br>
+	<a class="title-txt">Void App 3.0</a><br>
 	<div id="chatbox" class="body-container">
 		<br><br>
 	</div>
-	<input class="inp-chatbox" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
+	<input class="inp-chatbox" onfocus="myScrollToBottom()" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
