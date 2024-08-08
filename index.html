@@ -626,7 +626,7 @@ var finalStarNames = finalStarNames.split(',');
 			var wh = window.innerHeight;
 			var cbx = document.getElementById("chatbox");
 			var dbx = document.getElementById("displaybox");
-			if (ww >= wh) {dbx.display = 'none';} else {dbx.display = 'inline-block';}
+			if (ww >= wh) {dbx.style.display = 'none';} else {dbx.style.display = 'inline-block';}
 			// myViewSelect();
 			const width = document.body.offsetWidth;
 			const height = document.body.offsetHeight;
@@ -657,6 +657,7 @@ var finalStarNames = finalStarNames.split(',');
 			display: inline-block;
 			overflow: auto;
 			text-align: left;
+			padding-top: 20px;
 		}
 		.my-mobile-view {
 			width: 98%;
@@ -670,6 +671,7 @@ var finalStarNames = finalStarNames.split(',');
 			display: block;
 			overflow: auto;
 			text-align: left;
+			padding-top: 20px;
 		}
 		html, body {
 			width: 99%;
@@ -722,9 +724,9 @@ var finalStarNames = finalStarNames.split(',');
 	</style>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 2.0</a><br>
-	<div id="chatbox"><br><br></div>
-	<div id="displaybox"></div>
+	<a class="title-txt">Void App 3.0</a><br>
+	<div id="chatbox" ondblclick="if (this.style.height != '80%') {this.style.height = '80%'; this.style.display = 'inline-block'; displaybox.style.display = 'none';} else {myViewSelect();}"><br><br></div>
+	<div id="displaybox" ondblclick="if (this.style.height != '80%') {this.style.height = '80%'; this.style.display = 'inline-block'; chatbox.style.display = 'none';} else {myViewSelect();}"></div>
 	<input class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
