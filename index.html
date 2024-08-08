@@ -58,6 +58,11 @@
 	<!-- lemmaDict: Dictionary Of Lemmatization words -->
 	<!-- intentDict: Dictionary Of Key Intentents and Array Words -->
 	<script type="text/javascript">
+
+//TESTING URL CONV (PASS): ?d=.&s=hello.how are you.what is your name.nice to meet you.how old are you.are you a girl.are you single.what can you do.thank you
+//TESTING URL INFO (PASS): ?d=.&s=where did you get this data.do you store user data.
+//TESTING URL FUNC (PASS): ?d=.&s=play some video.i love milf.teens are hot.i wanna know about eva notty.i love lisa ann.i am also a fan of lena paul.cory chase mom vids.nicole aniston milf pics.kendra lust
+
 // Original Intent Dict
 var orgIntentDict = {
 
@@ -75,7 +80,7 @@ var orgIntentDict = {
 
 	"data_store": ["do", "you", "store", "record", "keep", "copy", "user", "my", "data", "privacy", "policy", "security"],
 	
-	'imgood': ['i', 'be', 'good', 'well', 'fine'],
+	'imgood': ['good', 'well', 'fine'],
 
 	'name': ["what", "be", "your", "name", "call", "you"],
 
@@ -139,7 +144,7 @@ var intentDict = {'hello': ['hello', 'hey', 'hi', 'howdy'],
 'gender': ['be', 'boy', 'dilf', 'female', 'girl', 'male', 'man', 'mature', 'milf', 'or', 'teen', 'woman', 'you'],
 'data_src': ['be', 'data', 'dataset', 'do', 'from', 'get', 'source', 'what', 'where', 'you'],
 'data_store': ['copy', 'data', 'do', 'keep', 'my', 'policy', 'privacy', 'record', 'secure', 'store', 'use', 'you'],
-'imgood': ['be', 'better', 'fine', 'i'],
+'imgood': ['better', 'fine'],
 'name': ['be', 'call', 'name', 'what', 'you', 'your'],
 'age': ['age', 'be', 'how', 'old', 'teen', 'what', 'you', 'your'],
 'actions': ['act', 'assist', 'be', 'can', 'do', 'duty', 'help', 'how', 'perform', 'program', 'what', 'you'],
@@ -250,10 +255,20 @@ var finalStarNames = finalStarNames.split(',');
 			console.log('url => '+url);
 			if (url.indexOf('\?') <= -1) {return;}
 			console.log('url 2 => '+url);
-			var args = url.split('\?')[1];
-			var searchq = args.split('s=')[1].split('&')[0].replace(/\+/g, ' ');
-			chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + searchq;
-			processInput();
+			var args = '&' + url.split('\?')[1];
+			var searchqs = args.split('&s=')[1].split('&')[0].replace(/\+/g, ' ').replace(/\%20/g, ' ');
+			if (args.indexOf('&d=') > -1) {
+				var delimq = args.split('&d=')[1].split('&')[0];
+				for (let sp=0; sp<searchqs.split(delimq).length; sp++) {
+					var searchq = searchqs.split(delimq)[sp];
+					chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + searchq;
+					processInput();
+				}
+			} else {
+				var searchq = searchqs;
+				chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + searchq;
+				processInput();
+			}
 		}
 
 		function myChooseRandom(a) {
@@ -641,7 +656,7 @@ var finalStarNames = finalStarNames.split(',');
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 4</a><br>
+	<a class="title-txt">Void App 5</a><br>
 	<div id="chatbox" class="body-container">
 		<br><br>
 	</div>
