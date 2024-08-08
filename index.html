@@ -626,7 +626,7 @@ var finalStarNames = finalStarNames.split(',');
 			var wh = window.innerHeight;
 			var cbx = document.getElementById("chatbox");
 			var dbx = document.getElementById("displaybox");
-			if (ww >= wh) {dbx.style.display = 'none';} else {dbx.style.display = 'inline-block';}
+			// if (ww >= wh) {dbx.style.display = 'none';} else {dbx.style.display = 'inline-block';}
 			// myViewSelect();
 			const width = document.body.offsetWidth;
 			const height = document.body.offsetHeight;
@@ -721,12 +721,21 @@ var finalStarNames = finalStarNames.split(',');
 			color: white;
 			font-weight: 600;
 		}
+		.full-screen-btn {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			background-color: transparent;
+			border: 0px;
+			color: grey;
+			font-weight: 600;
+		}
 	</style>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 3.0</a><br>
-	<div id="chatbox" ondblclick="if (this.style.height != '80%') {this.style.height = '80%'; this.style.display = 'inline-block'; displaybox.style.display = 'none';} else {myViewSelect();}"><br><br></div>
-	<div id="displaybox" ondblclick="if (this.style.height != '80%') {this.style.height = '80%'; this.style.display = 'inline-block'; chatbox.style.display = 'none';} else {myViewSelect();}"></div>
+	<a class="title-txt">Void App 4.0</a><br>
+	<div id="chatbox"><button class="full-screen-btn" onclick="if (chatbox.style.height != '80%') {chatbox.style.height = '80%'; chatbox.style.display = 'inline-block'; displaybox.style.display = 'none'; this.innerHTML = '↙';} else {myViewSelect(); this.innerHTML = '↗';}">↗</button><br><br></div>
+	<div id="displaybox"><button class="full-screen-btn" onclick="if (displaybox.style.height != '80%') {displaybox.style.height = '80%'; displaybox.style.display = 'inline-block'; chatbox.style.display = 'none'; this.innerHTML = '↙';} else {myViewSelect(); this.innerHTML = '↗';}">↗</button></div>
 	<input class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
