@@ -239,6 +239,12 @@ var picsData = [
 "https://www.pornpictureshq.com/?q=lisa+ann" 
 ];
 
+var finalStarNames = '';
+for (strno = 0; strno<starNames.length; strno = strno + 2) {
+	var finalStarNames = finalStarNames + starNames[strno] + ' ' + starNames[strno+1] + ',';
+}
+var finalStarNames = finalStarNames.split(',');
+
 		function preprocess() {
 			var url = window.location.href;
 			console.log('url => '+url);
@@ -421,7 +427,8 @@ var picsData = [
 		}
 
 		function mydetail(arg) {
-			arg[2] = "https://www.milffox.com/search/?q=lisa+ann";
+			// arg[2] = "https://www.milffox.com/search/?q=lisa+ann";
+			arg[2] = "https://www.milffox.com/milf-pornstars/lisa-ann/";
 			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
 			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here Are The Details <br><iframe src="'+u+'" class="ifrm" allowfullscreen></iframe></div>';
@@ -525,6 +532,27 @@ var picsData = [
 			}
 			var convStarName = convStarName.trim();
 
+			var convStarName = ' ' + convStarName + ' ';
+			var starMaxCount = 0;
+			for (let fsno=0; fsno<finalStarNames.length; fsno++) {
+				var finalSubStar = finalStarNames[fsno].split(' ');
+				var ssCount = 0;
+				for (let fssno=0; fssno<finalSubStar.length; fssno++) {
+					if (convStarName.indexOf(' ' + finalSubStar[fssno] + ' ') > -1) {
+						var ssCount = ssCount + 1;
+						console.log('      Sub Star => ' + finalSubStar[fssno]);
+					}
+				}
+				if (ssCount >= starMaxCount) {
+					var outConvStarName = finalStarNames[fsno];
+					var starMaxCount = ssCount;
+					console.log('    Final Star Name => ' + outConvStarName);
+				}
+				console.log('================================');
+			}
+
+			var convStarName = outConvStarName;
+
 			//Lemma Input
 			var lemmaConv = ''
 			for (let w=0; w<lastConv.trim().split(' ').length; w++) {
@@ -557,6 +585,7 @@ var picsData = [
 						var maxScore = currentScore;
 						console.log('finalIntent => '+finalIntent+' '+'maxScore => '+maxScore);
 					}
+					console.log('================================');
 				}
 			}
 
@@ -612,7 +641,7 @@ var picsData = [
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 3</a><br>
+	<a class="title-txt">Void App 4</a><br>
 	<div id="chatbox" class="body-container">
 		<br><br>
 	</div>
