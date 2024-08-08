@@ -722,9 +722,8 @@ var finalStarNames = finalStarNames.split(',');
 			font-weight: 600;
 		}
 		.full-screen-btn {
-			position: static;
-			top: 0px;
-			right: 0px;
+			margin-left: 95%;
+			margin-top: 0px;
 			background-color: transparent;
 			border: 0px;
 			color: grey;
@@ -733,7 +732,7 @@ var finalStarNames = finalStarNames.split(',');
 	</style>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 5.0 static</a><br>
+	<a class="title-txt">Void App 5.0</a><br>
 	<div id="chatbox"><button class="full-screen-btn" onclick="if (this.innerHTML == '↗') {chatbox.style.height = '80%'; chatbox.style.display = 'inline-block'; displaybox.style.display = 'none'; this.innerHTML = '↙';} else {myViewSelect(); this.innerHTML = '↗';}">↗</button><br><br></div>
 	<div id="displaybox"><button class="full-screen-btn" onclick="if (this.innerHTML == '↗') {displaybox.style.height = '80%'; displaybox.style.display = 'inline-block'; chatbox.style.display = 'none'; this.innerHTML = '↙';} else {myViewSelect(); this.innerHTML = '↗';}">↗</button></div>
 	<input class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
