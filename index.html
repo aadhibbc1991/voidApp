@@ -622,7 +622,12 @@ var finalStarNames = finalStarNames.split(',');
 		}
 
 		window.addEventListener('resize', () => {
-			myViewSelect();
+			var ww = window.innerWidth;
+			var wh = window.innerHeight;
+			var cbx = document.getElementById("chatbox");
+			var dbx = document.getElementById("displaybox");
+			if (ww >= wh) {dbx.display = 'none';} else {dbx.display = 'inline-block';}
+			// myViewSelect();
 			const width = document.body.offsetWidth;
 			const height = document.body.offsetHeight;
 			// alert(`Body size changed: width=${width}, height=${height}`);
