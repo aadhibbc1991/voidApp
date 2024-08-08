@@ -58,8 +58,8 @@
 	<!-- lemmaDict: Dictionary Of Lemmatization words -->
 	<!-- intentDict: Dictionary Of Key Intentents and Array Words -->
 	<script type="text/javascript">
-
-var intentDict = {
+// Original Intent Dict
+var orgIntentDict = {
 
 	'hello': ["hello", "hi", "howdy", "hey"],
 
@@ -130,6 +130,34 @@ var intentDict = {
 	'search': ["need", "want", "wanna", "wish", "desire",
 			   "open", "visit", "view", "show", "unblock"]
 };
+
+//lemmatised Intent Dict
+var intentDict = {'hello': ['hello', 'hey', 'hi', 'howdy'],
+'thanks': ['thank', 'thank you', 'thankyou'],
+'contact': ['contact', 'get', 'give', 'number', 'you', 'your'],
+'single': ['be', 'in', 'marry', 'or', 'relate', 'single', 'you'],
+'gender': ['be', 'boy', 'dilf', 'female', 'girl', 'male', 'man', 'mature', 'milf', 'or', 'teen', 'woman', 'you'],
+'data_src': ['be', 'data', 'dataset', 'do', 'from', 'get', 'source', 'what', 'where', 'you'],
+'data_store': ['copy', 'data', 'do', 'keep', 'my', 'policy', 'privacy', 'record', 'secure', 'store', 'use', 'you'],
+'imgood': ['be', 'better', 'fine', 'i'],
+'name': ['be', 'call', 'name', 'what', 'you', 'your'],
+'age': ['age', 'be', 'how', 'old', 'teen', 'what', 'you', 'your'],
+'actions': ['act', 'assist', 'be', 'can', 'do', 'duty', 'help', 'how', 'perform', 'program', 'what', 'you'],
+'hru': ['be', 'do', 'how', 'you'],
+'ntmy': ['meet', 'niceness', 'please'],
+'random_video': ['about', 'any', 'anything', 'clip', 'dvd', 'film', 'footage', 'how', 'mms', 'movie', 'porn', 'random', 'record', 'some', 'something', 'tape', 'tube', 'vid', 'video', 'vids'],
+'random_stars': ['about', 'actress', 'any', 'anything', 'how', 'pornstar', 'some', 'something', 'star'],
+'like_dilf': ['adore', 'beautiful', 'beautify', 'cute', 'dad', 'daddy', 'desire', 'dilf', 'dude', 'fan', 'father', 'guy', 'hot', 'like', 'love', 'man', 'mature', 'need', 'old', 'older', 'papa', 'pretty', 'similarity', 'step', 'stepdad', 'suggest', 'uncle', 'wanna', 'want', 'wish'],
+'like_boy': ['adore', 'anyone', 'beautiful', 'beautify', 'boy', 'brethren', 'bro', 'cute', 'desire', 'dude', 'fan', 'guy', 'hot', 'like', 'love', 'need', 'nephew', 'pornstar', 'pretty', 'similarity', 'someone', 'son', 'star', 'step', 'stepson', 'suggest', 'teen', 'wanna', 'want', 'wish', 'young'],
+'like_star': ['about', 'act', 'actress', 'admire', 'adore', 'any', 'anything', 'beautiful', 'beautify', 'choice', 'choose', 'cute', 'fan', 'gorgeous', 'horn', 'hot', 'how', 'like', 'love', 'pornstar', 'pretty', 'show', 'some', 'something', 'star', 'suggest', 'sweetness'],
+'like_milf': ['adore', 'anyone', 'aunt', 'aunty', 'beautiful', 'beautify', 'cute', 'desire', 'fan', 'hot', 'like', 'love', 'mamma', 'mature', 'milf', 'mom', 'motherhood', 'need', 'old', 'older', 'pornstar', 'pretty', 'similarity', 'someone', 'star', 'step', 'stepmom', 'suggest', 'wanna', 'want', 'wish', 'woman', 'women'],
+'like_teen': ['18 year old', '18 yo', 'adore', 'anyone', 'beautiful', 'beautify', 'cute', 'daughter', 'desire', 'eighteen year old', 'eighteen yo', 'fan', 'girl', 'hot', 'like', 'love', 'need', 'niece', 'pornstar', 'pretty', 'similarity', 'sis', 'sister', 'someone', 'star', 'suggest', 'teen', 'wanna', 'want', 'wish', 'young'],
+'detail': ['about', 'adore', 'beautiful', 'beautify', 'bio', 'biodata', 'build', 'color', 'cute', 'data', 'desire', 'detail', 'ethnicity', 'fan', 'height', 'home', 'hot', 'info', 'inform', 'know', 'like', 'love', 'measure', 'need', 'originate', 'pretty', 'size', 'story', 'wanna', 'want', 'weight', 'wish'],
+'like': ['about', 'admire', 'adore', 'beautiful', 'beautify', 'choice', 'choose', 'cute', 'fan', 'gorgeous', 'hot', 'how', 'like', 'love', 'pretty', 'show', 'suggest', 'sweetness'],
+'video': ['clip', 'desire', 'display', 'dvd', 'film', 'footage', 'look', 'mms', 'movie', 'need', 'porn', 'record', 'see', 'show', 'tape', 'tube', 'vid', 'video', 'vids', 'view', 'wanna', 'want', 'watch', 'wish'],
+'pic': ['artist', 'clipart', 'desire', 'display', 'draw', 'imagery', 'look', 'meme', 'memes', 'need', 'outline', 'photo', 'pic', 'pics', 'picture', 'see', 'show', 'view', 'wanna', 'want', 'watch', 'wish'],
+'search': ['desire', 'need', 'open', 'show', 'unblock', 'view', 'visit', 'wanna', 'want', 'wish']};
+
 var valueData = {
 	"dilf": ["tommy gun", "keiran lee", "rocco siffredi", "manuel ferrara"], 
 	"boy": ["jordy el", "lucas frost", "logan", "xander", "james deen"],
@@ -583,7 +611,7 @@ var picsData = [
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App</a><br>
+	<a class="title-txt">Void App 2</a><br>
 	<div id="chatbox" class="body-container">
 		<br><br>
 	</div>
