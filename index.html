@@ -326,12 +326,12 @@ var finalStarNames = finalStarNames.split(',');
 				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
 				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
 				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same:</button></div>';
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = ''+u+'';
 			} else {
 				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
 				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same:</button></div>';
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = ''+u+'';
 
 			}
 		}
@@ -340,7 +340,7 @@ var finalStarNames = finalStarNames.split(',');
 				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn\', target=\'_blank\')">If you like '+arg[0]+' Then you might love these</button>';
 				// window.open('https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
 				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="mymainframe.src=\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main\'">AI: If you like '+arg[0]+' Then you might love these..</button></div>'
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = 'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main'
 
 			} else {
 				if (arg[2] == '' || arg[2] == undefined) {
@@ -402,7 +402,7 @@ var finalStarNames = finalStarNames.split(',');
 			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
 			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="mymainframe.src=\''+u+'\'">Here is the bio...</button></div>';
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = ''+u+'';
 			// window.open(u, target='_blank');
 		}
 
@@ -421,13 +421,13 @@ var finalStarNames = finalStarNames.split(',');
 				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
 				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
 				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same: </button></div>';
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = ''+u+'';
 				
 			} else {
 				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
 				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same: </button></div>';
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = ''+u+'';
 
 			}
 		}
@@ -452,7 +452,7 @@ var finalStarNames = finalStarNames.split(',');
 			var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
 			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same:</button></div>';
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = ''+u+'';
 
 		}
 
@@ -473,7 +473,7 @@ var finalStarNames = finalStarNames.split(',');
 			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
 			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is A Random Search: </button></div>';
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = ''+u+'';
 
 		}
 		function myrandom_stars(arg) {
@@ -482,10 +482,11 @@ var finalStarNames = finalStarNames.split(',');
 			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main\', target=\'_blank\')">Choosing a Random Star</button>';
 			// window.open('https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
 			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="mymainframe.src=\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main\'">AI: You might like this..</button></div>'
-				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main" style="width: 100%; height: 100%" allowfullscreen></iframe>'
+				mymainframe.src = 'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main'
 		}
 
 		function processInput() {
+			document.getElementById('inp').placeholder = 'Processing...';
 			var mytxt = document.getElementById('chatbox').innerHTML;
 			var lctxt = mytxt.replace(/<br>/g, '\n').toLowerCase().trim();
 			var lastConv = lctxt.split("\nuser: ")[lctxt.split("\nuser: ").length - 1]
@@ -600,6 +601,9 @@ var finalStarNames = finalStarNames.split(',');
 			// window.scrollTo(0, document.body.scrollHeight);
 			document.body.scrollTop = document.body.scrollHeight;
 
+			document.getElementById('inp').placeholder = 'Type Something Here...';
+
+
 		}
 
 		function myViewSelect() {
@@ -611,8 +615,8 @@ var finalStarNames = finalStarNames.split(',');
 				var classNameStr = 'my-desktop-view';
 				cbx.classList.add(classNameStr);
 				dbx.classList.add(classNameStr);
-				cbx.style.width = "30%";
-				dbx.style.width = "69%";
+				// cbx.style.width = "30%";
+				// dbx.style.width = "69%";
 
 			} else {
 				var classNameStr = 'my-mobile-view';
@@ -658,11 +662,11 @@ var finalStarNames = finalStarNames.split(',');
 			display: inline-block;
 			overflow: auto;
 			text-align: left;
-			padding-top: 20px;
+			/*padding-top: 20px;*/
 		}
 		.my-mobile-view {
 			width: 98%;
-			height: 45%;
+			height: 40%;
 			padding: 0px;
 			margin: 0px;
 			color: white;
@@ -672,7 +676,7 @@ var finalStarNames = finalStarNames.split(',');
 			display: block;
 			overflow: auto;
 			text-align: left;
-			padding-top: 20px;
+			/*padding-top: 20px;*/
 		}
 		html, body {
 			width: 99%;
@@ -687,7 +691,7 @@ var finalStarNames = finalStarNames.split(',');
 			outline: none;
 			overflow: auto;
 		}
-		.chat-buttons {
+		.chat-buttons, button {
 			border: 1px solid #DDDDDD;
 			padding: 5px;
 			border-radius: 5px;
@@ -723,12 +727,13 @@ var finalStarNames = finalStarNames.split(',');
 			font-weight: 600;
 		}
 		.full-screen-btn {
-			margin-left: 95%;
+			margin-left: 89%;
 			margin-top: 0px;
-			background-color: transparent;
+			background-color: rgba(10, 10, 10, 0.3);
 			border: 0px;
-			color: grey;
+			color: white;
 			font-weight: 600;
+			font-size: 130%;
 		}
 	</style>
 	<script type="text/javascript">
@@ -738,35 +743,36 @@ var finalStarNames = finalStarNames.split(',');
 					ele[1].style.height = '80%';
 					ele[1].style.display = 'inline-block';
 					ele[2].style.display = 'none';
-					ele[0].innerHTML == '↙';
+					ele[0].innerHTML = '↙';
 				} else {
-					myViewSelect();
-					ele[1].style.height = '45%';
+					// myViewSelect();
+					ele[1].style.height = '40%';
 					ele[1].style.display = 'inline-block';
 					ele[2].style.display = 'inline-block';
-					ele[0].innerHTML == '↗';
+					ele[0].innerHTML = '↗';
 				}
 			} else {
 				if (ele[0].innerHTML == '↗') {
 					ele[1].style.width = '90%';
 					ele[1].style.display = 'inline-block';
 					ele[2].style.display = 'none';
-					ele[0].innerHTML == '↙';
+					ele[0].innerHTML = '↙';
 				} else {
-					myViewSelect();
+					// myViewSelect();
 					ele[1].style.width = '49%';
 					ele[1].style.display = 'inline-block';
+					ele[2].style.width = '49%';
 					ele[2].style.display = 'inline-block';
-					ele[0].innerHTML == '↗';
+					ele[0].innerHTML = '↗';
 				}
 			}
 		}
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 6.0</a><br>
+	<a class="title-txt">Void App</a><br>
 	<div id="chatbox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button><br><br></div>
-	<div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button></div>
-	<input class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
+	<div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button><iframe id="mymainframe" src="" style="width: 100%; height: 100%" allowfullscreen></iframe></div>
+	<input id="inp" class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
