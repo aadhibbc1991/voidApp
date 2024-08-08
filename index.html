@@ -3,56 +3,7 @@
 <head>
 	<title>Void App V3.3</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style type="text/css">
-		html, body {
-			width: 97%;
-			height: 99.3%;
-			text-align: center;
-			background-image: linear-gradient(to bottom, #101010, #353535);
-		}
-		.body-container {
-			text-align: left;
-			color: #DDDDDD;
-			font-family: sans-serif;
-			outline: none;
-			overflow: auto;
-		}
-		.chat-buttons {
-			border: 1px solid #DDDDDD;
-			padding: 5px;
-			border-radius: 5px;
-			font-family: sans-serif;
-			background-color: transparent;
-			color: #DDDDDD;
-		}
-		.inp-chatbox {
-			padding: 5px;
-			border-radius: 5px;
-			font-family: sans-serif;
-			width: 90%;
-			margin-top: 20px;
-			margin: 5px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
-		.ifrm {
-			width: 95%;
-			height: 400px;
-			border-radius: 15px;
-		}
-		.pda-msg {
-			padding: 10px;
-			border: 1px solid transparent;
-			border-radius: 10px;
-			background-image: linear-gradient(to bottom right, blue, purple);
-		}
-		.title-txt {
-			font-family: sans-serif;
-			font-size: 150%;
-			color: white;
-			font-weight: 600;
-		}
-	</style>
+
 	<script src="data.js"></script>
 	<!-- starNames: Array Of Snake Cased Names -->
 	<!-- lemmaDict: Dictionary Of Lemmatization words -->
@@ -251,6 +202,8 @@ for (strno = 0; strno<starNames.length; strno = strno + 2) {
 var finalStarNames = finalStarNames.split(',');
 
 		function preprocess() {
+			myViewSelect();
+
 			var url = window.location.href;
 			console.log('url => '+url);
 			if (url.indexOf('\?') <= -1) {return;}
@@ -372,12 +325,13 @@ var finalStarNames = finalStarNames.split(',');
 			if (arg[2] == '' || arg[2] == undefined) {
 				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
 				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'" allowfullscreen></iframe></div>';
-				
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same:</button></div>';
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 			} else {
 				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'" allowfullscreen></iframe></div>';
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same:</button></div>';
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 
 			}
 		}
@@ -385,7 +339,8 @@ var finalStarNames = finalStarNames.split(',');
 			if (arg[0] != '' && arg[0] != undefined) {
 				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn\', target=\'_blank\')">If you like '+arg[0]+' Then you might love these</button>';
 				// window.open('https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: If you like '+arg[0]+' Then you might love these..<br><iframe src="https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm" allowfullscreen></iframe></div>'
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="mymainframe.src=\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main\'">AI: If you like '+arg[0]+' Then you might love these..</button></div>'
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 
 			} else {
 				if (arg[2] == '' || arg[2] == undefined) {
@@ -397,7 +352,7 @@ var finalStarNames = finalStarNames.split(',');
 					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
 					window.open(u, target='_blank');
 				}
-				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><iframe src="https://aadhibbc1991.github.io/stars/?s='+arg[1].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm" allowfullscreen></iframe>'
+				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><iframe id="mymainframe" src="https://aadhibbc1991.github.io/stars/?s='+arg[1].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm" allowfullscreen></iframe>'
 			}
 		}
 		function mylike_dilf(arg) {
@@ -446,7 +401,8 @@ var finalStarNames = finalStarNames.split(',');
 			arg[2] = "https://www.milffox.com/milf-pornstars/lisa-ann/";
 			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here Are The Details <br><iframe src="'+u+'" class="ifrm" allowfullscreen></iframe></div>';
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="mymainframe.src=\''+u+'\'">Here is the bio...</button></div>';
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 			// window.open(u, target='_blank');
 		}
 
@@ -464,12 +420,14 @@ var finalStarNames = finalStarNames.split(',');
 			if (arg[2] == '' || arg[2] == undefined) {
 				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
 				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'" allowfullscreen></iframe></div>';
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same: </button></div>';
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 				
 			} else {
 				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'" allowfullscreen></iframe></div>';
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same: </button></div>';
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 
 			}
 		}
@@ -493,7 +451,8 @@ var finalStarNames = finalStarNames.split(',');
 			arg[2] = myChooseRandom(picsData)
 			var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is the Search for the same: <iframe class="ifrm" src="'+u+'" allowfullscreen></iframe></div>';
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is the Search for the same:</button></div>';
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 
 		}
 
@@ -513,7 +472,8 @@ var finalStarNames = finalStarNames.split(',');
 			arg[2] = myChooseRandom(siteData);
 			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
 			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: Here is A Random Search: <iframe class="ifrm" src="'+u+'" allowfullscreen></iframe></div>';
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="mymainframe.src=\''+u+'\'">AI: Here is A Random Search: </button></div>';
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="'+u+'" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 
 		}
 		function myrandom_stars(arg) {
@@ -521,7 +481,8 @@ var finalStarNames = finalStarNames.split(',');
 			// var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length)];
 			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main\', target=\'_blank\')">Choosing a Random Star</button>';
 			// window.open('https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
-			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: You might like this..<br><iframe src="https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main" class="ifrm" allowfullscreen></iframe></div>'
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="mymainframe.src=\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main\'">AI: You might like this..</button></div>'
+				document.getElementById('displaybox').innerHTML = '<iframe id="mymainframe" src="https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main" style="width: 100%; height: 100%" allowfullscreen></iframe>'
 		}
 
 		function processInput() {
@@ -634,10 +595,34 @@ var finalStarNames = finalStarNames.split(',');
 			// console.log('"' +lctxt+ '"')
 
 			window.scrollTo(0, document.body.scrollHeight);
+			var objDiv = document.getElementById("chatbox");
+			objDiv.scrollTop = objDiv.scrollHeight;
+			// window.scrollTo(0, document.body.scrollHeight);
+			document.body.scrollTop = document.body.scrollHeight;
 
 		}
 
+		function myViewSelect() {
+			var ww = window.innerWidth;
+			var wh = window.innerHeight;
+			var cbx = document.getElementById("chatbox");
+			var dbx = document.getElementById("displaybox");
+			if (ww > wh) {
+				var classNameStr = 'my-desktop-view';
+				cbx.classList.add(classNameStr);
+				dbx.classList.add(classNameStr);
+				cbx.style.width = "30%";
+				dbx.style.width = "69%";
+			} else {
+				var classNameStr = 'my-mobile-view';
+				cbx.classList.add(classNameStr);
+				dbx.classList.add(classNameStr);
+			}
+			console.log("myViewSelect() <-- Triggered")
+		}
+
 		window.addEventListener('resize', () => {
+			myViewSelect();
 			const width = document.body.offsetWidth;
 			const height = document.body.offsetHeight;
 			// alert(`Body size changed: width=${width}, height=${height}`);
@@ -653,13 +638,88 @@ var finalStarNames = finalStarNames.split(',');
 			// window.scrollTo(0, document.body.scrollHeight);
 			document.body.scrollTop = document.body.scrollHeight;
 		}
-	</script>	
+	</script>
+		<style type="text/css">
+		.my-desktop-view {
+			width: 49%;
+			height: 600px;
+			padding: 0px;
+			margin: 0px;
+			color: white;
+			font-family: sans-serif;
+			border: 1px solid white;
+			border-radius: 10px;
+			display: inline-block;
+			overflow: auto;
+			text-align: left;
+		}
+		.my-mobile-view {
+			width: 98%;
+			height: 45%;
+			padding: 0px;
+			margin: 0px;
+			color: white;
+			font-family: sans-serif;
+			border: 1px solid white;
+			border-radius: 5px;
+			display: block;
+			overflow: auto;
+			text-align: left;
+		}
+		html, body {
+			width: 99%;
+			height: 99.3%;
+			text-align: center;
+			background-image: linear-gradient(to bottom, #101010, #353535);
+		}
+		.body-container {
+			text-align: left;
+			color: #DDDDDD;
+			font-family: sans-serif;
+			outline: none;
+			overflow: auto;
+		}
+		.chat-buttons {
+			border: 1px solid #DDDDDD;
+			padding: 5px;
+			border-radius: 5px;
+			font-family: sans-serif;
+			background-color: transparent;
+			color: #DDDDDD;
+		}
+		.inp-chatbox {
+			padding: 5px;
+			border-radius: 5px;
+			font-family: sans-serif;
+			width: 90%;
+			margin-top: 20px;
+			margin: 5px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.ifrm {
+			width: 95%;
+			height: 400px;
+			border-radius: 15px;
+		}
+		.pda-msg {
+			padding: 10px;
+			border: 1px solid transparent;
+			border-radius: 10px;
+			background-image: linear-gradient(to bottom right, blue, purple);
+		}
+		.title-txt {
+			font-family: sans-serif;
+			font-size: 150%;
+			color: white;
+			font-weight: 600;
+		}
+	</style>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App 5</a><br>
-	<div id="chatbox" class="body-container">
-		<br><br>
-	</div>
+	<a class="title-txt">Void App</a><br>
+	<div id="chatbox"><br><br></div>
+	<div id="displaybox"></div>
 	<input class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
