@@ -631,7 +631,7 @@ var finalStarNames = finalStarNames.split(',');
 			var wh = window.innerHeight;
 			var cbx = document.getElementById("chatbox");
 			var dbx = document.getElementById("displaybox");
-			// if (ww >= wh) {dbx.style.display = 'none';} else {dbx.style.display = 'inline-block';}
+			if (ww >= wh && inp.focus == true) {document.getElementById("displaybox").style.display = 'none';} else {document.getElementById("displaybox").style.display = 'inline-block';}
 			// myViewSelect();
 			const width = document.body.offsetWidth;
 			const height = document.body.offsetHeight;
@@ -657,7 +657,7 @@ var finalStarNames = finalStarNames.split(',');
 			margin: 0px;
 			color: white;
 			font-family: sans-serif;
-			border: 1px solid white;
+			border: 1px solid #303030;
 			border-radius: 10px;
 			display: inline-block;
 			overflow: auto;
@@ -671,8 +671,8 @@ var finalStarNames = finalStarNames.split(',');
 			margin: 0px;
 			color: white;
 			font-family: sans-serif;
-			border: 1px solid white;
-			border-radius: 5px;
+			border: 1px solid #303030;
+			border-radius: 10px;
 			display: block;
 			overflow: auto;
 			text-align: left;
@@ -682,7 +682,7 @@ var finalStarNames = finalStarNames.split(',');
 			width: 99%;
 			height: 99.3%;
 			text-align: center;
-			background-image: linear-gradient(to bottom, #101010, #353535);
+			background-image: linear-gradient(to bottom, #101010, #404040);
 		}
 		.body-container {
 			text-align: left;
@@ -714,6 +714,9 @@ var finalStarNames = finalStarNames.split(',');
 			height: 400px;
 			border-radius: 15px;
 		}
+		iframe {
+			border: 1px solid transparent;
+		}
 		.pda-msg {
 			padding: 10px;
 			border: 1px solid transparent;
@@ -734,6 +737,9 @@ var finalStarNames = finalStarNames.split(',');
 			color: white;
 			font-weight: 600;
 			font-size: 130%;
+			border-radius: 5px;
+			height: 35px;
+			width: 35px;
 		}
 	</style>
 	<script type="text/javascript">
@@ -767,12 +773,17 @@ var finalStarNames = finalStarNames.split(',');
 				}
 			}
 		}
+		function inputFocusFunction() {
+			if (window.innerWidth >= window.innerHeight) {
+
+			}
+		}
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App</a><br>
+	<a class="title-txt">Void App 7.0</a><br>
 	<div id="chatbox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button><br><br></div>
 	<div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button><iframe id="mymainframe" src="" style="width: 100%; height: 100%" allowfullscreen></iframe></div>
-	<input id="inp" class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500)" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
+	<input id="inp" class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500); inputFocusFunction();" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
 </body>
 </html>
