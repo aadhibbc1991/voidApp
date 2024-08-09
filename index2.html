@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Void App V3.3</title>
+	<title>Void App V4</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<script src="data.js"></script>
@@ -783,12 +783,12 @@ var finalStarNames = finalStarNames.split(',');
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a href="/voidApp/" class="title-txt">Void App</a><br>
+	<a href="/voidApp/index2.html" class="title-txt">Void App</a><br>
 	<div class="body-container" id="chatbox">
 		<!-- <button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button> -->
 		<!-- <br><br> -->
 	</div>
 	<!-- <div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button><iframe id="mymainframe" src="" style="width: 100%; height: 100%" allowfullscreen></iframe></div> -->
-	<input id="inp" class="inp-chatbox" onchange="processInput();" placeholder="Type Something Here..." />
+	<input id="inp" class="inp-chatbox" onchange="processInput(); this.value='';" placeholder="Type Something Here..." />
 </body>
 </html>
