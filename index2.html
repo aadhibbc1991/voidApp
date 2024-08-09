@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Void App V3.3</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<script src="data.js"></script>
+	<!-- starNames: Array Of Snake Cased Names -->
+	<!-- lemmaDict: Dictionary Of Lemmatization words -->
+	<!-- intentDict: Dictionary Of Key Intentents and Array Words -->
+	<script type="text/javascript">
+
+//TESTING URL CONV (PASS): ?d=.&s=hello.how are you.what is your name.nice to meet you.how old are you.are you a girl.are you single.what can you do.thank you
+//TESTING URL INFO (PASS): ?d=.&s=where did you get this data.do you store user data.
+//TESTING URL FUNC (PASS): ?d=.&s=play some video.i love milf.teens are hot.i wanna know about eva notty.i love lisa ann.i am also a fan of lena paul.cory chase mom vids.nicole aniston milf pics.kendra lust
+
+// Original Intent Dict
+var orgIntentDict = {
+
+	'hello': ["hello", "hi", "howdy", "hey"],
+
+	'thanks': ['thanks', 'thankyou', 'thank you'],
+
+	"contact": ["get", "give", "your", "you", "contact", "number"],
+
+	"single": ["be", "you", "single", "or", "married", "in", "relation"],
+
+	"gender": ["be", "you", "male", "man", "boy", "dilf", "mature", "or", "female", "woman", "girl", "milf", "teen"],
+	
+	"data_src": ["where", "do", "you", "get", "data", "from", "what", "be", "source", "dataset"],
+
+	"data_store": ["do", "you", "store", "record", "keep", "copy", "user", "my", "data", "privacy", "policy", "security"],
+	
+	'imgood': ['good', 'well', 'fine'],
+
+	'name': ["what", "be", "your", "name", "call", "you"],
+
+	'age': ["what", "be", "your", "age", "how", "old", "you", "teen"],
+
+	'actions': ["what", "can", "you", "do", "action", "perform", "duty", "be", "program", "how", "help", "assist"],
+
+	'hru': ["how", "be", "you", "do"], 
+
+	'ntmy': ['pleasure', 'nice', 'meet'],
+
+
+	'random_video': ["random", 'how', 'about', 'some', 'something', 'any', 'anything', 
+					 "video", "footage", "clip", "recording", "tape", "mms", "dvd", "vid", "vids", "porn", "tube", "movie", "film"], 
+	'random_stars': ['how', 'about', 'some', 'something', 'any', 'anything', 'star', 'actress', 'pornstar'], 
+	
+	'like_dilf': ["need", "want", "wanna", "wish", "desire", 
+					 "like", "love", "adore", "fan", "hot", "cute", "pretty", "beauty", "beautiful", 
+					 "suggest", "similar", 
+					 "dilf", "mature", "dad", "stepdad", "step", "old", "older", "men", "man", "guy", "dude", "father", "daddy", "papa", "uncle"], 
+	'like_boy': ["need", "want", "wanna", "wish", "desire", 
+					 "like", "love", "adore", "fan", "hot", "cute", "pretty", "beauty", "beautiful", 
+					 "suggest", "similar", 
+					 "someone", "anyone", "star", "pornstar",
+					 "teen", "young", "boy", "guy", "dude", "bro", "brother", "nephew", "stepson", "step", "son"], 
+	'like_star': ['how', 'about', 'suggest', 'show','some', 'something', 'choose', 'choice', 'any', 'anything', 'like', 'love', 'fan', 'admire', 
+		'adore', 'sweet', 'cute', 'hot', 'horny', 'pretty', 'gorgeous', 'beauty', 'beautiful', 
+		'star', 'actress', 'pornstar', 'actor'],
+	'like_milf': ["need", "want", "wanna", "wish", "desire", 
+					 "like", "love", "adore", "fan", "hot", "cute", "hot", "cute", "pretty", "beauty", "beautiful", 
+					 "suggest", "similar", 
+					 "someone", "anyone", "star", "pornstar",
+					 "milf", "mature", "mom", "stepmom", "old", "older", "women", "woman", "step", "mother", "mamma", "aunt", "aunty"], 
+	'like_teen': ["need", "want", "wanna", "wish", "desire", 
+					 "like", "love", "adore", "fan", "hot", "cute", "pretty", "beauty", "beautiful", 
+					 "suggest", "similar", 
+					 "someone", "anyone", "star", "pornstar",
+					 "teen", "young", "girl", "sister", "sis", "daughter", "niece", "18 yo", "18 year old", "eighteen year old", "eighteen yo"], 
+	'detail': ["need", "want", "wanna", "wish", "desire", 
+				"like", "love", "adore", "fan", "hot", "cute", "pretty", "beauty", "beautiful", 
+				"biodata", "bio", "details", "story", "know", "data", "information", "info", "about", 
+				"height", "weight", "measurement", "measure", "size", "color", "ethnicity", "home", "origin", "build"],
+	
+	'like': ['suggest', 'show', 'how', 'about', 'choose', 'choice', 'like', 'love', 'fan', 'admire', 'adore', 'sweet', 'cute', 
+			 'hot', 'pretty', 'gorgeous', 'beauty', 'beautiful'], 
+	'video': ["need", "want", "wanna", "wish", "desire", 
+					"watch", "see", "look", "view", "display", "show", 
+					"video", "footage", "clip", "recording", "tape", "mms", "dvd", "vid", "vids", "porn", "tube", "movie", "film"],
+	'pic': ["need", "want", "wanna", "wish", "desire", 
+			  "watch", "see", "look", "view", "display", "show", 
+			  "image", "images", "photo", "picture", "pic", "pics", "clipart", "drawing", "memes", "meme", "outline", "art"],
+	'search': ["need", "want", "wanna", "wish", "desire",
+			   "open", "visit", "view", "show", "unblock"]
+};
+
+//lemmatised Intent Dict
+var intentDict = {'hello': ['hello', 'hey', 'hi', 'howdy'],
+'thanks': ['thank', 'thank you', 'thankyou'],
+'contact': ['contact', 'get', 'give', 'number', 'you', 'your'],
+'single': ['be', 'in', 'marry', 'or', 'relate', 'single', 'you'],
+'gender': ['be', 'boy', 'dilf', 'female', 'girl', 'male', 'man', 'mature', 'milf', 'or', 'teen', 'woman', 'you'],
+'data_src': ['be', 'data', 'dataset', 'do', 'from', 'get', 'source', 'what', 'where', 'you'],
+'data_store': ['copy', 'data', 'do', 'keep', 'my', 'policy', 'privacy', 'record', 'secure', 'store', 'use', 'you'],
+'imgood': ['better', 'fine'],
+'name': ['be', 'call', 'name', 'what', 'you', 'your'],
+'age': ['age', 'be', 'how', 'old', 'teen', 'what', 'you', 'your'],
+'actions': ['act', 'assist', 'be', 'can', 'do', 'duty', 'help', 'how', 'perform', 'program', 'what', 'you'],
+'hru': ['be', 'do', 'how', 'you'],
+'ntmy': ['meet', 'niceness', 'please'],
+'random_video': ['about', 'any', 'anything', 'clip', 'dvd', 'film', 'footage', 'how', 'mms', 'movie', 'porn', 'random', 'record', 'some', 'something', 'tape', 'tube', 'vid', 'video', 'vids'],
+'random_stars': ['about', 'actress', 'any', 'anything', 'how', 'pornstar', 'some', 'something', 'star'],
+'like_dilf': ['adore', 'beautiful', 'beautify', 'cute', 'dad', 'daddy', 'desire', 'dilf', 'dude', 'fan', 'father', 'guy', 'hot', 'like', 'love', 'man', 'mature', 'need', 'old', 'older', 'papa', 'pretty', 'similarity', 'step', 'stepdad', 'suggest', 'uncle', 'wanna', 'want', 'wish'],
+'like_boy': ['adore', 'anyone', 'beautiful', 'beautify', 'boy', 'brethren', 'bro', 'cute', 'desire', 'dude', 'fan', 'guy', 'hot', 'like', 'love', 'need', 'nephew', 'pornstar', 'pretty', 'similarity', 'someone', 'son', 'star', 'step', 'stepson', 'suggest', 'teen', 'wanna', 'want', 'wish', 'young'],
+'like_star': ['about', 'act', 'actress', 'admire', 'adore', 'any', 'anything', 'beautiful', 'beautify', 'choice', 'choose', 'cute', 'fan', 'gorgeous', 'horn', 'hot', 'how', 'like', 'love', 'pornstar', 'pretty', 'show', 'some', 'something', 'star', 'suggest', 'sweetness'],
+'like_milf': ['adore', 'anyone', 'aunt', 'aunty', 'beautiful', 'beautify', 'cute', 'desire', 'fan', 'hot', 'like', 'love', 'mamma', 'mature', 'milf', 'mom', 'motherhood', 'need', 'old', 'older', 'pornstar', 'pretty', 'similarity', 'someone', 'star', 'step', 'stepmom', 'suggest', 'wanna', 'want', 'wish', 'woman', 'women'],
+'like_teen': ['18 year old', '18 yo', 'adore', 'anyone', 'beautiful', 'beautify', 'cute', 'daughter', 'desire', 'eighteen year old', 'eighteen yo', 'fan', 'girl', 'hot', 'like', 'love', 'need', 'niece', 'pornstar', 'pretty', 'similarity', 'sis', 'sister', 'someone', 'star', 'suggest', 'teen', 'wanna', 'want', 'wish', 'young'],
+'detail': ['about', 'adore', 'beautiful', 'beautify', 'bio', 'biodata', 'build', 'color', 'cute', 'data', 'desire', 'detail', 'ethnicity', 'fan', 'height', 'home', 'hot', 'info', 'inform', 'know', 'like', 'love', 'measure', 'need', 'originate', 'pretty', 'size', 'story', 'wanna', 'want', 'weight', 'wish'],
+'like': ['about', 'admire', 'adore', 'beautiful', 'beautify', 'choice', 'choose', 'cute', 'fan', 'gorgeous', 'hot', 'how', 'like', 'love', 'pretty', 'show', 'suggest', 'sweetness'],
+'video': ['clip', 'desire', 'display', 'dvd', 'film', 'footage', 'look', 'mms', 'movie', 'need', 'porn', 'record', 'see', 'show', 'tape', 'tube', 'vid', 'video', 'vids', 'view', 'wanna', 'want', 'watch', 'wish'],
+'pic': ['artist', 'clipart', 'desire', 'display', 'draw', 'imagery', 'look', 'meme', 'memes', 'need', 'outline', 'photo', 'pic', 'pics', 'picture', 'see', 'show', 'view', 'wanna', 'want', 'watch', 'wish'],
+'search': ['desire', 'need', 'open', 'show', 'unblock', 'view', 'visit', 'wanna', 'want', 'wish']};
+
+var valueData = {
+	"dilf": ["tommy gun", "keiran lee", "rocco siffredi", "manuel ferrara"], 
+	"boy": ["jordy el", "lucas frost", "logan", "xander", "james deen"],
+    "milf": ["Lisa Ann", "Brandi Love", "Kendra Lust", "Nicole Aniston", "Eva Notty", "Ava Addams"],
+    "teen": ["Janice Griffith", "Adria Rea", "Dillion Harper", "Lena Paul"],
+    "star": ["Lisa Ann", "Brandi Love", "Kendra Lust", "Nicole Aniston", "Eva Notty", "Ava Addams", "Janice Griffith", "Adria Rea", "Dillion Harper", "Lena Paul"],
+    "site": ["mat6tube", "qorno", "de.porngub.org", "spankbang.party"]
+}
+var siteData = [
+"https://de.pornhub.org/video/search?search=lisa+ann", 
+"https://xhamster42.desi/search/lisa+ann", 
+"https://spankbang.party/s/lisa%20ann/", 
+"https://pornzog.com/search/?s=lisa+ann", 
+"https://txxx.com/search/?s=lisa%20ann", 
+"https://www.redtube.net/?search=lisa+ann", 
+"https://www.porn.com/search?sq=lisa+ann", 
+"https://www.tube8.es/searches.html?q=lisa+ann", 
+"https://www.ixxx.com/search/a/lisa%20ann", 
+"https://www.sunporno.com/search/lisa+ann/", 
+"https://www.pornhat.com/search/lisa-ann/", 
+"https://www.thumbzilla.com/tags/lisa-ann", 
+"https://zbporn.com/search/lisa+ann/", 
+"https://ok.xxx/search/lisa-ann/", 
+"https://beeg.com/LisaAnn?f=MILF", 
+"https://www.3movs.com/search_videos/?q=lisa-ann", 
+"https://www.cumlouder.com/search/?q=lisa%20ann", 
+"https://vipwank.com/lisa-ann-videos", 
+"https://www.porndroids2.com/search/?q=lisa+ann&bus=lisa+ann", 
+"https://xbabe.com/search/?q=lisa+ann", 
+"https://www.alohatube.com/top/lisa_ann_milf", 
+"https://www.maturetube.com/search/a/lisa%20ann", 
+"https://www.tubev.sex/search?search=lisa+ann", 
+"https://www.porntube.com/search?q=lisa%20ann", 
+"https://www.porndig.com/videos/s=lisa+ann", 
+"https://www.pornburst2.xxx/search/?q=lisa+ann", 
+"https://www.porn.biz/find-lisa%20ann/page-1.php", 
+"https://www.bigporn.com/search-lisa%20ann/1.html", 
+"https://www.pornid.xxx/search/lisa+ann/", 
+"https://www.pornerbros.com/search?q=lisa%20ann", 
+"https://www.milffox.com/search/?f=1&q=lisa+ann", 
+"https://www.qorno.com/search/a/lisa%20ann", 
+"https://www.you-porn.com/search/?search-btn=&query=lisa+ann", 
+"https://www.milfporn.tv/search/lisa-ann/", 
+"https://iporntv.net/searches.php?word=lisa+ann", 
+"https://eporner.com/search/lisa-ann/", 
+"https://pornzog.com/search/?s=lisa+ann", 
+"https://zeenite.com/search/lisa-ann/", 
+"https://www.fpo.xxx/search/lisa-ann/", 
+"https://www.porntrex.com/search/lisa-ann/", 
+"https://mat6tube.com/video/lisa%20ann", 
+"https://noodlemagazine.com/video/lisa%20ann", 
+"https://bigfuck.tv/s/lisa-ann/", 
+"https://hqporner.com/?q=lisa+ann", 
+"https://upornia.com/search/1/?s=lisa+ann", 
+"https://sxyprn.com/lisa-ann.html", 
+]
+
+// var siteData = [
+// "https://mat6tube.com/video/lisa%20ann", 
+// "https://hdhole.com/lisa-ann-videos", 
+// "https://spankbang.party/s/lisa%20ann/", 
+// "https://matures.porn/search?q=lisa+ann", 
+// "https://www.pussyspace.com/search?q=lisa+ann", 
+// "https://kompoz2.com/find/lisa-ann/", 
+// "https://pornzog.com/search/?s=lisa+ann", 
+// "https://iporntv.net/searches.php?word=lisa+ann", 
+// "https://bustybus.com/search/lisa%20ann/", 
+// "https://hqporn.xxx/search/lisa%20ann/", 
+// "https://porn-hub.live/search/lisa-ann/?", 
+// "https://xnxx.health/search/lisa+ann"
+// ];
+
+var picsData = [
+"https://www.definebabe.com/search/albums/?f=1&q=lisa+ann",
+"https://jjgirls.com/pornpics/lisa-ann", 
+"https://babe.today/pics/lisa-ann", 
+"https://www.youx.xxx/tag/lisa-ann/", 
+"https://pics-x.com/search?terms=lisa+ann",
+"https://www.pornpictureshq.com/?q=lisa+ann" 
+];
+
+var finalStarNames = '';
+for (strno = 0; strno<starNames.length; strno = strno + 2) {
+	var finalStarNames = finalStarNames + starNames[strno] + ' ' + starNames[strno+1] + ',';
+}
+var finalStarNames = finalStarNames.split(',');
+
+		function preprocess() {
+			// myViewSelect();
+
+			var url = window.location.href;
+			console.log('url => '+url);
+			if (url.indexOf('\?') <= -1) {return;}
+			console.log('url 2 => '+url);
+			var args = '&' + url.split('\?')[1];
+			var searchqs = args.split('&s=')[1].split('&')[0].replace(/\+/g, ' ').replace(/\%20/g, ' ');
+			if (args.indexOf('&d=') > -1) {
+				var delimq = args.split('&d=')[1].split('&')[0];
+				for (let sp=0; sp<searchqs.split(delimq).length; sp++) {
+					var searchq = searchqs.split(delimq)[sp];
+					// chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + searchq;
+					inp.value = searchq;
+					processInput();
+				}
+			} else {
+				var searchq = searchqs;
+				// chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + searchq;
+				inp.value = searchq;
+				processInput();
+			}
+		}
+
+		function myChooseRandom(a) {
+			var rand = new Date().getMilliseconds();
+			var i = rand % a.length;
+			return a[i];
+		}
+		// myChooseRandom(['a', 'b', 'c', 'd', 'e']);
+
+		function myname(arg) {
+			var names = ["My name is Adria Harper. 😊❤️", "People call me Adria Harper. You can call me Adria. ❤️😄"];
+			var currentName = myChooseRandom(names);
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentName + '</div>';
+		}
+
+		function mydata_src(arg) {
+			var dataSrc = ["I was trained on tiny datasets from various sources."];
+			var currentDataSrc = myChooseRandom(dataSrc);
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentDataSrc + '</div>';
+		}
+
+		function mydata_store(arg) {
+			var stores = ["I do not store any data."];
+			var currentstores = myChooseRandom(stores);
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentstores + '</div>';
+		}
+
+		function mygender(arg) {
+			var genders = ["I don't have a gender. I am a program."]
+			var currentgenders = myChooseRandom(genders);
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentgenders + '</div>';
+		}
+		function myntmy(arg) {
+			var nices = ["Like wise hottie!", "Pleasure to meet you too!"]
+			var currentnice = myChooseRandom(nices);
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentnice + '</div>';
+		}
+		function mysingle(arg) {
+			var single = ["I don't have a relationship status, if thats what you mean."]
+			var currentsingle = myChooseRandom(single);
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentsingle + '</div>';
+		}
+
+		function mycontact(arg) {
+			var contact = ["I do not have a phone, Sorry! 😑"]
+			var currentcontact = myChooseRandom(contact);
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentcontact + '</div>';
+		}
+
+		function myimgood(arg) {
+			var greetings = ["Glad to hear that, By the way what would you like today? teen or milf?",
+							 "Happy to hear, so whats it gonna be milf or teen?"];
+			var currentGreeting = myChooseRandom(greetings);
+			// var currentGreeting = greetings[Math.floor(Math.random()*greetings.length)]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentGreeting + '</div>';
+		}
+
+		function myhello(arg) {
+			var greetings = ['Hello, Sweet heart, what would you like to explore', 'Hi, Sweetie, what would you like? milf or teen?', 'Greetings, Honey, todays choise, milf or teen?', 'Hello, How are you Love?']
+			var currentGreeting = myChooseRandom(greetings);
+			// var currentGreeting = greetings[Math.floor(Math.random()*greetings.length)]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentGreeting + '</div>';
+		}
+		function myhru(arg) {
+			var hrus = ['I am fine, thanks for asking.'];
+			// var hru = [Math.floor(Math.random()*hrus.length-1)]
+			var hru = myChooseRandom(hrus);
+			// var hru = hrus[0];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <div class="pda-msg">' + hru + '</div>';
+		}
+		function myage(arg) {
+			var ages = ['I am young and single.'];
+			var age = myChooseRandom(ages);
+			// var age = ages[0]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + age + '</div>';
+		}
+		function myactions(arg) {
+			var ages = ['I can do the following:<br><br>1. Give You Access To Adult Sites (Unblock any site)<br><br>2. Suggest You With Pornstars Based On Your Likes.<br><br>3. Play Random Adult Videos \& Videos Of Your Choice<br><br>4. Search For Adult Images<br><br>5. I Have Access To Data Like Adult Star\'s Biodatas.'];
+			var age = myChooseRandom(ages);
+			// var age = ages[0]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + age + '</div>';
+		}
+		function mythanks(arg) {
+			var greetings = ['You are welcome sweet heart!', 'Anytime hottie!', 'You are most welcome!'];
+			var currentGreeting = myChooseRandom(greetings);
+			// var currentGreeting = greetings[Math.floor(Math.random()*greetings.length)]
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: ' + currentGreeting + '</div>';
+			
+		}
+		function mysearch(arg) {
+			// if (arg[2] == '' || arg[2] == undefined) {
+			// 	document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Sure, Here you go.</button></div>';
+			// 	window.open('https://void-web-search-app.vercel.app/search/'+arg[1].trim().replace(/ /g, '+')+'+porn', target='_blank');
+			// } else {
+			// 	var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			// 	var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			// 	document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Sure, Here you go.</button></div>';
+			// 	window.open(u, target='_blank');	
+			// }
+
+			if (arg[2] == '' || arg[2] == undefined) {
+				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
+				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="window.open(\''+u+'\', target=\'_black\')">AI: Here is the Search for the same:</button></div>';
+				window.open(''+u+'', target='_blank');
+			} else {
+				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="window.open(\''+u+'\', target=\'_black\')">AI: Here is the Search for the same:</button></div>';
+				window.open(''+u+'', target='_blank');
+
+			}
+		}
+		function mylike(arg) {
+			if (arg[0] != '' && arg[0] != undefined) {
+				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn\', target=\'_blank\')">If you like '+arg[0]+' Then you might love these</button>';
+				// window.open('https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main\', target=\'_black\')">AI: If you like '+arg[0]+' Then you might love these..</button></div>'
+				window.open('https://aadhibbc1991.github.io/stars/?s='+arg[0].replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
+
+			} else {
+				if (arg[2] == '' || arg[2] == undefined) {
+					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
+					window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
+				} else {
+					var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+					var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+					document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
+					window.open(u, target='_blank');
+				}
+				// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><iframe id="mymainframe" src="https://aadhibbc1991.github.io/stars/?s='+arg[1].replace(/ /g, '+')+'&g=prn&display=main" class="ifrm" allowfullscreen></iframe>'
+			}
+		}
+		function mylike_dilf(arg) {
+			// if (arg[0] == '' || arg[0] == undefined) {
+				var randStar = myChooseRandom(valueData['dilf']);
+			// var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length)];
+				arg[0] = randStar;
+			// }
+			mylike(arg);
+		}
+		function mylike_boy(arg) {
+			// if (arg[0] == '' || arg[0] == undefined) {
+				var randStar = myChooseRandom(valueData['boy']);
+			// var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length)];
+				arg[0] = randStar;
+			// }
+			mylike(arg);
+		}
+		function mylike_milf(arg) {
+			// if (arg[0] == '' || arg[0] == undefined) {
+				var randStar = myChooseRandom(valueData['milf']);
+			// var randStar = valueData['milf'][Math.floor(Math.random()*valueData['milf'].length)];
+				arg[0] = randStar;
+			// }
+			mylike(arg);
+		}
+		function mylike_teen(arg) {
+			// if (arg[0] == '' || arg[0] == undefined) {
+				var randStar = myChooseRandom(valueData['teen']);
+			// var randStar = valueData['teen'][Math.floor(Math.random()*valueData['teen'].length)];
+				arg[0] = randStar;
+			// }
+			mylike(arg);
+		}
+		function mylike_star(arg) {
+			// if (arg[0] == '' || arg[0] == undefined) {
+				var randStar = myChooseRandom(valueData['star']);
+			// var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length)];
+				arg[0] = randStar;
+			// }
+			mylike(arg);
+		}
+
+		function mydetail(arg) {
+			// arg[2] = "https://www.milffox.com/search/?q=lisa+ann";
+			arg[2] = "https://www.milffox.com/milf-pornstars/lisa-ann/";
+			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="window.open(\''+u+'\'", target=\'_blank\');>Here is the bio...</button></div>';
+				window.open(''+u+'', target='_blank');
+			// window.open(u, target='_blank');
+		}
+
+		function myvideo(arg) {
+			// if (arg[2] == '' || arg[2] == undefined) {
+			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn\', target=\'_blank\')">Let me get it for you</button></div>';
+			// window.open('https://void-web-search-app.vercel.app/search/'+arg[1].replace(/ /g, '+')+'+porn', target='_blank');
+			// } else {
+			// 		var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			// 		var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			// 		document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
+			// 		window.open(u, target='_blank');
+			// 	}
+
+			if (arg[2] == '' || arg[2] == undefined) {
+				var q = arg[1].trim().replace(/ /g, siteData[0].split('lisa')[1].split('ann')[0]);
+				var u = siteData[0].split('lisa')[0] + q + siteData[0].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="window.open(\''+u+'\', target=\'_black\')">AI: Here is the Search for the same: </button></div>';
+				window.open(''+u+'', target='_blank');
+				
+			} else {
+				var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+				var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+				document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="window.open(\''+u+'\', target=\'_black\')">AI: Here is the Search for the same: </button></div>';
+				window.open(''+u+'', target='_blank');
+
+			}
+		}
+
+		function mypic(arg) {
+			// if (arg[0] == '' || arg[0] == undefined) {
+			// 	arg[0] = myChooseRandom(valueData['milf']);
+			// }
+			// var q = arg[0].trim().replace(/ /g, "+");
+			// var u = "https://www.pornpics.de/?q="+q;
+			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Let me get it for you</button></div>';
+			// window.open(u, target='_blank');
+
+			arg[1] = ' ' + arg[1] + ' ';
+			var picsKeys = intentDict['pic']
+			for (let pk=0; pk<picsKeys.length; pk++) {
+				arg[1] = arg[1].split(' ' + picsKeys[pk] + ' ').join(' ');
+			}
+			arg[1] = arg[1].trim();
+
+			arg[2] = myChooseRandom(picsData)
+			var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="window.open(\''+u+'\', target=\'_black\')">AI: Here is the Search for the same:</button></div>';
+				window.open(''+u+'', target='_blank');
+
+		}
+
+		function myrandom_video(arg) {
+			// if (arg[2] == '' || arg[2] == undefined) {
+			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?g=random\', target=\'_blank\')">Playing a random footage</button></div>';
+			// window.open('https://aadhibbc1991.github.io/stars/?g=random', target='_blank');
+			// } else {
+			// 		var q = arg[1].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			// 		var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			// 		document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg">AI: <button class="chat-buttons" onclick="window.open(\''+u+'\', target=\'_blank\')">Playing a random footage</button></div>';
+			// 		window.open(u, target='_blank');
+			// 	}
+			if (arg[0] == '' || arg[0] == undefined) {
+				arg[0] = myChooseRandom(valueData['star']);
+			}
+			arg[2] = myChooseRandom(siteData);
+			var q = arg[0].trim().replace(/ /g, arg[2].split('lisa')[1].split('ann')[0]);
+			var u = arg[2].split('lisa')[0] + q + arg[2].split('ann')[1];
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><button onclick="window.open(\''+u+'\', target=\'_black\')">AI: Here is A Random Search: </button></div>';
+				window.open(''+u+'', target='_blank');
+
+		}
+		function myrandom_stars(arg) {
+			var randStar = myChooseRandom(valueData['star']);
+			// var randStar = valueData['star'][Math.floor(Math.random()*valueData['star'].length)];
+			// document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br>AI: <button class="chat-buttons" onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main\', target=\'_blank\')">Choosing a Random Star</button>';
+			// window.open('https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><div class="pda-msg"><br><button onclick="window.open(\'https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main\', target=\'_black\')">AI: You might like this..</button></div>'
+				window.open('https://aadhibbc1991.github.io/stars/?s='+randStar.replace(/ /g, '+')+'&g=prn&display=main', target='_blank');
+		}
+
+		function processInput() {
+
+			var inpStr = document.getElementById('inp').value;
+
+			document.getElementById('chatbox').innerHTML = document.getElementById('chatbox').innerHTML + '<br><br><button onclick="document.getElementById(\'inp\').value = \''+inpStr+'\'; processInput();"> User: ' + inpStr+'</button>';
+
+			document.getElementById('inp').placeholder = 'Processing...';
+			var mytxt = document.getElementById('chatbox').innerHTML;
+			var lctxt = mytxt.replace(/<br>/g, '\n').toLowerCase().trim();
+			var lastConv = inpStr;
+			if (lastConv.indexOf('\nai:') > -1 && lastConv.trim() != '') {return}
+
+			var symb = [',', "'", '"', '/', '\\', '\?', "!", "(", ")", "&", "\."];
+			for (let sno=0; sno<symb.length; sno++) {
+				var lastConv = lastConv.split(symb[sno]).join(" " + symb[sno] + " ");
+			}
+
+			var lastConv = lastConv.replace(/  /g, ' ').replace(/  /g, ' ').replace(/  /g, ' ').replace(/  /g, ' ').replace(/  /g, ' ').replace(/  /g, ' ');
+
+			var lastConv = ' ' + lastConv + ' ';
+			var convStarName = '';
+			//Extract The Star Names
+			for (let sn=0; sn<starNames.length; sn++) {
+				if (lastConv.indexOf(' ' + starNames[sn] + ' ') > -1 && convStarName.indexOf(' ' + starNames[sn]) <= -1) {
+					var convStarName = convStarName + ' ' + starNames[sn];
+				}
+			}
+			var convStarName = convStarName.trim();
+
+			var convStarName = ' ' + convStarName + ' ';
+			var starMaxCount = 0;
+			for (let fsno=0; fsno<finalStarNames.length; fsno++) {
+				var finalSubStar = finalStarNames[fsno].split(' ');
+				var ssCount = 0;
+				for (let fssno=0; fssno<finalSubStar.length; fssno++) {
+					if (convStarName.indexOf(' ' + finalSubStar[fssno] + ' ') > -1) {
+						var ssCount = ssCount + 1;
+						console.log('      Sub Star => ' + finalSubStar[fssno]);
+					}
+				}
+				if (ssCount >= starMaxCount) {
+					var outConvStarName = finalStarNames[fsno];
+					var starMaxCount = ssCount;
+					console.log('    Final Star Name => ' + outConvStarName);
+				}
+				console.log('================================');
+			}
+
+			var convStarName = outConvStarName;
+
+			//Lemma Input
+			var lemmaConv = ''
+			for (let w=0; w<lastConv.trim().split(' ').length; w++) {
+				lemmaWord = lemmaDict[lastConv.trim().split(' ')[w]];
+				if (lemmaWord != undefined) {var lemmaConv = lemmaConv + lemmaWord + ' '} else {var lemmaConv = lemmaConv + lastConv.trim().split(' ')[w] + ' '}
+			}
+			var lemmaConv = ' ' + lemmaConv.trim() + ' ';
+
+			//Intent Recognition
+			var maxScore = 0;
+			var finalIntent = '';
+			var newConv = lemmaConv;
+			var currentScore = 0;
+			for (k in intentDict) {
+				if (k in intentDict) {
+					var currentVals = intentDict[k].join(" ").toLowerCase().split(" ");
+					var currentScore = 0;
+					var newConv = lemmaConv;
+					for (let v=0; v<currentVals.length; v++) {
+						currentVal = ' ' + currentVals[v].toLowerCase().trim() + ' ';
+						if (lemmaConv.indexOf(currentVal) > -1) {
+							var currentScore = currentScore + 1;
+							var newConv = newConv.replace(currentVal, ' ');
+							console.log('        '+currentVal);
+						}
+					}
+					if (currentScore >= maxScore) {
+						var newConvOut = newConv;
+						var finalIntent = k;
+						var maxScore = currentScore;
+						console.log('finalIntent => '+finalIntent+' '+'maxScore => '+maxScore);
+					}
+					console.log('================================');
+				}
+			}
+
+			var maxCnt = 0;
+			var outUrl = '';
+			var newConv2 = '';
+			var newConvOut2 = newConvOut;
+			//Site recognition
+			for (let sarr=0; sarr<siteData.length; sarr++) {
+				var currentUrl = siteData[sarr];
+				var cnt = 0;
+				var newConv2 = '';
+				for (let lc=0; lc<lemmaConv.trim().split(' ').length; lc++) {
+					var currentWord = lemmaConv.trim().split(' ')[lc];
+					if (currentUrl.indexOf(currentWord) <= -1 && currentWord.length > 2) {var newConv2 = newConv2 + ' ' + currentWord;} else {if (currentWord.toLowerCase() == 'lisa' || currentWord.toLowerCase() == 'ann') {var newConv2 = newConv2 + ' ' + currentWord;}}
+					if (currentUrl.indexOf(currentWord) > -1 && currentWord.length >= 2) {var cnt = cnt + 1;}
+				}
+				if (cnt > 0 && cnt >= maxCnt) {
+					var maxCnt = cnt;
+					var outUrl = currentUrl;
+					var newConvOut2 = newConv2.trim();
+				}
+			}
+
+			var argArray = [convStarName, newConvOut2.split('user: ')[newConvOut.split('user: ').length-1], outUrl, maxScore];
+
+			console.log('My Function: '+'my'+finalIntent);
+
+			if (finalIntent != '') {window['my'+finalIntent](argArray);}
+
+			// console.log('"' +lctxt+ '"')
+
+			window.scrollTo(0, document.body.scrollHeight);
+			var objDiv = document.getElementById("chatbox");
+			objDiv.scrollTop = objDiv.scrollHeight;
+			// window.scrollTo(0, document.body.scrollHeight);
+			document.body.scrollTop = document.body.scrollHeight;
+
+			// document.getElementById('inp').placeholder = 'Type Something Here...';
+			// document.getElementById('inp').value=''; 
+
+		}
+
+		function myViewSelect() {
+			var ww = window.innerWidth;
+			var wh = window.innerHeight;
+			var cbx = document.getElementById("chatbox");
+			var dbx = document.getElementById("displaybox");
+			if (ww > wh) {
+				var classNameStr = 'my-desktop-view';
+				cbx.classList.add(classNameStr);
+				dbx.classList.add(classNameStr);
+				// cbx.style.width = "30%";
+				// dbx.style.width = "69%";
+
+			} else {
+				var classNameStr = 'my-mobile-view';
+				cbx.classList.add(classNameStr);
+				dbx.classList.add(classNameStr);
+			}
+			console.log("myViewSelect() <-- Triggered")
+		}
+
+		window.addEventListener('resize', () => {
+			var ww = window.innerWidth;
+			var wh = window.innerHeight;
+			var cbx = document.getElementById("chatbox");
+			var dbx = document.getElementById("displaybox");
+			if (ww >= wh && inp.focus == true) {document.getElementById("displaybox").style.display = 'none';} else {document.getElementById("displaybox").style.display = 'inline-block';}
+			// myViewSelect();
+			const width = document.body.offsetWidth;
+			const height = document.body.offsetHeight;
+			// alert(`Body size changed: width=${width}, height=${height}`);
+			var objDiv = document.getElementById("chatbox");
+			objDiv.scrollTop = objDiv.scrollHeight;
+			// window.scrollTo(0, document.body.scrollHeight);
+			document.body.scrollTop = document.body.scrollHeight;
+		});
+		
+		function myScrollToBottom() {
+			var objDiv = document.getElementById("chatbox");
+			objDiv.scrollTop = objDiv.scrollHeight;
+			// window.scrollTo(0, document.body.scrollHeight);
+			document.body.scrollTop = document.body.scrollHeight;
+		}
+	</script>
+		<style type="text/css">
+		.my-desktop-view {
+			width: 49%;
+			height: 600px;
+			padding: 0px;
+			margin: 0px;
+			color: white;
+			font-family: sans-serif;
+			border: 1px solid #303030;
+			border-radius: 10px;
+			display: inline-block;
+			overflow: auto;
+			text-align: left;
+			/*padding-top: 20px;*/
+		}
+		.my-mobile-view {
+			width: 98%;
+			height: 40%;
+			padding: 0px;
+			margin: 0px;
+			color: white;
+			font-family: sans-serif;
+			border: 1px solid #303030;
+			border-radius: 10px;
+			display: block;
+			overflow: auto;
+			text-align: left;
+			/*padding-top: 20px;*/
+		}
+		html, body {
+			width: 99%;
+			height: 99.3%;
+			text-align: center;
+			background-image: linear-gradient(to bottom, #101010, #404040);
+		}
+		.body-container {
+			text-align: left;
+			color: #DDDDDD;
+			font-family: sans-serif;
+			outline: none;
+			overflow: auto;
+		}
+		.chat-buttons, button {
+			border: 1px solid #DDDDDD;
+			padding: 5px;
+			border-radius: 5px;
+			font-family: sans-serif;
+			background-color: transparent;
+			color: #DDDDDD;
+		}
+		.inp-chatbox {
+			padding: 5px;
+			border-radius: 5px;
+			font-family: sans-serif;
+			width: 90%;
+			margin-top: 20px;
+			margin: 5px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.ifrm {
+			width: 95%;
+			height: 400px;
+			border-radius: 15px;
+		}
+		iframe {
+			border: 1px solid transparent;
+		}
+		.pda-msg {
+			padding: 10px;
+			border: 1px solid transparent;
+			border-radius: 10px;
+			background-image: linear-gradient(to bottom right, blue, purple);
+		}
+		.title-txt {
+			font-family: sans-serif;
+			font-size: 150%;
+			color: white;
+			font-weight: 600;
+		}
+		.full-screen-btn {
+			margin-left: 89%;
+			margin-top: 0px;
+			background-color: rgba(10, 10, 10, 0.3);
+			border: 0px;
+			color: white;
+			font-weight: 600;
+			font-size: 130%;
+			border-radius: 5px;
+			height: 35px;
+			width: 35px;
+		}
+	</style>
+	<script type="text/javascript">
+		function myFullScreenFunc(ele) {
+			if (window.innerHeight > window.innerWidth) {
+				if (ele[0].innerHTML == '↗') {
+					ele[1].style.height = '80%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.display = 'none';
+					ele[0].innerHTML = '↙';
+				} else {
+					// myViewSelect();
+					ele[1].style.height = '40%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.display = 'inline-block';
+					ele[0].innerHTML = '↗';
+				}
+			} else {
+				if (ele[0].innerHTML == '↗') {
+					ele[1].style.width = '90%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.display = 'none';
+					ele[0].innerHTML = '↙';
+				} else {
+					// myViewSelect();
+					ele[1].style.width = '49%';
+					ele[1].style.display = 'inline-block';
+					ele[2].style.width = '49%';
+					ele[2].style.display = 'inline-block';
+					ele[0].innerHTML = '↗';
+				}
+			}
+		}
+	</script>	
+</head>
+<body onload="preprocess();">
+	<a href="/voidApp/" class="title-txt">Void App</a><br>
+	<div class="body-container" id="chatbox">
+		<!-- <button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button> -->
+		<!-- <br><br> -->
+	</div>
+	<!-- <div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button><iframe id="mymainframe" src="" style="width: 100%; height: 100%" allowfullscreen></iframe></div> -->
+	<input id="inp" class="inp-chatbox" onchange="processInput();" placeholder="Type Something Here..." />
+</body>
+</html>
