@@ -631,8 +631,13 @@ var finalStarNames = finalStarNames.split(',');
 			var wh = window.innerHeight;
 			var cbx = document.getElementById("chatbox");
 			var dbx = document.getElementById("displaybox");
+<<<<<<< HEAD
+			if (ww >= wh) {dbx.style.display = 'none';} else {dbx.style.display = 'inline-block';}
+			myViewSelect();
+=======
 			if (ww >= wh && inp.focus == true) {document.getElementById("displaybox").style.display = 'none';} else {document.getElementById("displaybox").style.display = 'inline-block';}
 			// myViewSelect();
+>>>>>>> 1adc4dab7045fa6e31ef5cd7a9a6eddc28a90137
 			const width = document.body.offsetWidth;
 			const height = document.body.offsetHeight;
 			// alert(`Body size changed: width=${width}, height=${height}`);
@@ -781,7 +786,8 @@ var finalStarNames = finalStarNames.split(',');
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a class="title-txt">Void App</a><br>
+	<a href="/" class="title-txt">VOID APP</a><br>
+	<div id="chatbox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button><br><br></div>
 	<div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button><iframe id="mymainframe" src="" style="width: 100%; height: 100%" allowfullscreen></iframe></div>
 	<div id="chatbox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button><br><br></div>
 	<input id="inp" class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500); inputFocusFunction();" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
