@@ -1,3 +1,4 @@
+<!-- New Version 1.0 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -650,6 +651,14 @@ var finalStarNames = finalStarNames.split(',');
 		}
 	</script>
 		<style type="text/css">
+		body, html {
+			width: calc(99.5% - 2px);
+			height: calc(99.5% - 2px);
+			margin: 0;
+			padding: 0;
+			border: 1px dotted red;
+			background-image: linear-gradient(to bottom right, rgba(10, 10, 10, 1), rgba(50, 50, 50, 1));
+		}
 		.my-desktop-view {
 			width: 49%;
 			height: 600px;
@@ -678,12 +687,12 @@ var finalStarNames = finalStarNames.split(',');
 			text-align: left;
 			/*padding-top: 20px;*/
 		}
-		html, body {
+		/*html, body {
 			width: 99%;
 			height: 99.3%;
 			text-align: center;
 			background-image: linear-gradient(to bottom, #101010, #404040);
-		}
+		}*/
 		.body-container {
 			text-align: left;
 			color: #DDDDDD;
@@ -703,7 +712,8 @@ var finalStarNames = finalStarNames.split(',');
 			padding: 5px;
 			border-radius: 5px;
 			font-family: sans-serif;
-			width: 90%;
+			min-width: 250px;
+			width: 40%;
 			margin-top: 20px;
 			margin: 5px;
 			margin-top: 10px;
@@ -725,7 +735,7 @@ var finalStarNames = finalStarNames.split(',');
 		}
 		.title-txt {
 			font-family: sans-serif;
-			font-size: 150%;
+			font-size: 105%;
 			color: white;
 			font-weight: 600;
 		}
@@ -740,6 +750,10 @@ var finalStarNames = finalStarNames.split(',');
 			border-radius: 5px;
 			height: 35px;
 			width: 35px;
+		}
+		#displaybox {
+			width: calc(100% - 2px);
+			height: calc(100% - 50px);
 		}
 	</style>
 	<script type="text/javascript">
@@ -781,9 +795,16 @@ var finalStarNames = finalStarNames.split(',');
 	</script>	
 </head>
 <body onload="preprocess();">
-	<a href="/voidApp/?s=Hello!" class="title-txt">VOID APP 3.0</a><br>
-	<div id="displaybox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button><iframe id="mymainframe" src="" style="width: 100%; height: 100%" allowfullscreen></iframe></div>
-	<div id="chatbox"><button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button><br><br></div>
-	<input id="inp" class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500); inputFocusFunction();" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
+	<div style="text-align: center;">
+		<a href="/voidApp/?s=Hello!" class="title-txt">VOID APP</a>
+		<input id="inp" class="inp-chatbox" onfocus="window.setTimeout(function () {myScrollToBottom();}, 500); inputFocusFunction();" onchange="chatbox.innerHTML = chatbox.innerHTML + '<br><br>User: ' + this.value; this.value=''; processInput();" placeholder="Type Something Here..." />
+	</div>
+	<div id="displaybox">
+		<!-- <button class="full-screen-btn" onclick="myFullScreenFunc([this, displaybox, chatbox]);">↗</button> -->
+		<iframe id="mymainframe" src="" style="width: 100%; height: 100%" allowfullscreen></iframe>
+	</div>
+	<div id="chatbox" style="display:none">
+		<button class="full-screen-btn" onclick="myFullScreenFunc([this, chatbox, displaybox]);">↗</button><br><br>
+	</div>
 </body>
 </html>
